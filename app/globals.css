@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --primary-dark: #2563eb;
+  --bg-light: #eff6ff;
+  --bg-lighter: #dbeafe;
+  --border-light: #bfdbfe;
+  --text-primary: #1e3a8a;
+  --text-secondary: #1e40af;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+}
+
+/* Buttons - All Light Blue */
+.btn-primary {
+  @apply bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-sm hover:shadow-md;
+}
+
+.btn-secondary {
+  @apply bg-blue-100 text-blue-700 px-6 py-2.5 rounded-lg hover:bg-blue-200 transition-all font-medium border border-blue-200;
+}
+
+.btn-success {
+  @apply bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-sm hover:shadow-md;
+}
+
+.btn-danger {
+  @apply bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-sm hover:shadow-md;
+}
+
+/* Cards - Light Blue Theme */
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-blue-100 p-6 hover:shadow-md transition-shadow;
+}
+
+.stat-card {
+  @apply bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-sm border border-blue-200 p-6 hover:shadow-lg transition-all;
+}
+
+/* Input Fields - Light Blue Focus */
+.input-field {
+  @apply w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all bg-white;
+}
+
+/* Tables - Light Blue Theme */
+.table-container {
+  @apply overflow-x-auto rounded-xl border border-blue-100 shadow-sm;
+}
+
+/* Badges - All Light Blue */
+.badge {
+  @apply px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-success {
+  @apply badge bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.badge-danger {
+  @apply badge bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.badge-warning {
+  @apply badge bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.badge-info {
+  @apply badge bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.badge-secondary {
+  @apply badge bg-blue-50 text-blue-700 border border-blue-100;
+}
+
+/* Status Badges */
+.status-pending {
+  @apply bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold border border-blue-200;
+}
+
+.status-completed {
+  @apply bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.status-cancelled {
+  @apply bg-blue-200 text-blue-900 px-3 py-1 rounded-full text-xs font-semibold border border-blue-300;
+}
+
+
+/* Print styles for OP Ticket - Reverted to original */
+@media print {
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  @page {
+    margin: 1cm;
+    size: A4;
+  }
+  
+  .card {
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
+
+
+/* Print Styles for Reports */
+@media print {
+  /* Hide everything except the report content */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the report container and its children */
+  #report-content,
+  #report-content * {
+    visibility: visible;
+  }
+  
+  /* Position report at top of page */
+  #report-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  
+  /* Remove shadows and borders for print */
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+  
+  /* Ensure tables print properly */
+  table {
+    page-break-inside: auto;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  /* Adjust colors for print */
+  .bg-gradient-to-r,
+  .bg-gradient-to-br {
+    background: #f3f4f6 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Ensure status badges print with colors */
+  .bg-green-100,
+  .bg-yellow-100,
+  .bg-red-100,
+  .bg-blue-100,
+  .bg-orange-100,
+  .bg-purple-100,
+  .bg-pink-100 {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Page breaks */
+  .page-break {
+    page-break-after: always;
+  }
+  
+  /* Remove unnecessary spacing */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
