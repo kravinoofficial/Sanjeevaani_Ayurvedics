@@ -120,7 +120,7 @@ export default function AdminReportsPage() {
         .from('stock_transactions')
         .select('*')
         .eq('stock_item_id', selectedProduct)
-        .order('transaction_date', { ascending: false })
+        .order('created_at', { ascending: false })
 
       if (transError) throw transError
 

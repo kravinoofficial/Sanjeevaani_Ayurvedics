@@ -101,7 +101,7 @@ export default function ReceptionistRegistrationPage() {
         })
         .select(`
           *,
-          patients (patient_id, full_name, age, gender, phone),
+          patients (id, patient_id, full_name, age, gender, phone, address),
           users!op_registrations_doctor_id_fkey (full_name)
         `)
         .single()
@@ -163,14 +163,19 @@ export default function ReceptionistRegistrationPage() {
           })
       }
 
-      // Prepare ticket data
-      setTicketData({
+      // Prepare ticket data with patient details
+      const ticketInfo = {
         ...opData,
         opNumber: nextOpNumber,
         billNumber: billNumber,
         consultationFee: consultationFee,
         paymentMethod: paymentMethod,
-      })
+        // Ensure patient data is available
+        patients: opData.patients || selectedPatientData,
+      }
+      
+      console.log('Ticket Data:', ticketInfo)
+      setTicketData(ticketInfo)
       setShowTicket(true)
 
       // Reset form
@@ -346,8 +351,86 @@ export default function ReceptionistRegistrationPage() {
               margin-bottom: 8px;
             }
             @media print {
-              body { padding: 0; }
-              @page { margin: 0.5cm; size: A5 portrait; }
+              body { padding: 0; margin: 0; }
+              @page { 
+                margin: 0.3cm; 
+                size: A5 portrait; 
+              }
+              .ticket-container {
+                padding: 16px;
+                border-width: 3px;
+              }
+              .header {
+                padding-bottom: 12px;
+                margin-bottom: 16px;
+              }
+              .header h1 {
+                font-size: 24px;
+                margin-bottom: 2px;
+              }
+              .header p {
+                font-size: 12px;
+              }
+              .op-number {
+                padding: 12px;
+                margin-bottom: 16px;
+              }
+              .op-number p:last-child {
+                font-size: 40px;
+                margin-top: 2px;
+              }
+              .details {
+                gap: 12px;
+                margin-bottom: 16px;
+              }
+              .detail-item p:first-child {
+                font-size: 10px;
+                margin-bottom: 1px;
+              }
+              .detail-item p:last-child {
+                font-size: 14px;
+              }
+              .doctor-box {
+                padding: 10px;
+                margin-bottom: 12px;
+              }
+              .doctor-box p:first-child {
+                font-size: 10px;
+              }
+              .doctor-box p:last-child {
+                font-size: 13px;
+              }
+              .payment-box {
+                padding: 12px;
+                margin-bottom: 12px;
+              }
+              .payment-row {
+                margin-bottom: 6px;
+              }
+              .payment-row span:first-child {
+                font-size: 12px;
+              }
+              .payment-row.fee span:last-child {
+                font-size: 18px;
+              }
+              .payment-row span:last-child {
+                font-size: 12px;
+              }
+              .status-badge {
+                padding: 3px 10px;
+                font-size: 10px;
+              }
+              .bill-number {
+                font-size: 10px;
+                margin-bottom: 12px;
+              }
+              .footer {
+                padding-top: 12px;
+              }
+              .footer p {
+                font-size: 10px;
+                margin-bottom: 6px;
+              }
             }
           </style>
         </head>
@@ -606,23 +689,21 @@ export default function ReceptionistRegistrationPage() {
               {/* Doctor Selection */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Assign Doctor (Optional)
+                  Assign Doctor *
                 </label>
                 <select
                   value={selectedDoctor}
                   onChange={(e) => setSelectedDoctor(e.target.value)}
                   className="input-field"
+                  required
                 >
-                  <option value="">-- Select Doctor (Optional) --</option>
+                  <option value="">-- Select Doctor --</option>
                   {doctors.map((doctor) => (
                     <option key={doctor.id} value={doctor.id}>
                       Dr. {doctor.full_name}
                     </option>
                   ))}
                 </select>
-                <p className="text-xs text-gray-500 mt-1">
-                  Leave empty if doctor will be assigned later
-                </p>
               </div>
 
               {selectedPatientData && (

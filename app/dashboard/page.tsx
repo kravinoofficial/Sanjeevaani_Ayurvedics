@@ -26,7 +26,26 @@ export default function DashboardPage() {
   const loadStats = async (role: string) => {
     const today = new Date().toISOString().split('T')[0]
 
-    if (role === 'admin') {
+    if (role === 'staff') {
+      // Load combined stats for staff role
+      const [patients, todayOPs, waitingOPs, pendingMeds, pendingTreatments, lowStock] = await Promise.all([
+        supabase.from('patients').select('*', { count: 'exact', head: true }),
+        supabase.from('op_registrations').select('*', { count: 'exact', head: true }).eq('registration_date', today),
+        supabase.from('op_registrations').select('*', { count: 'exact', head: true }).eq('status', 'waiting'),
+        supabase.from('medicine_prescriptions').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+        supabase.from('physical_treatment_prescriptions').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+        supabase.from('medicines').select('*', { count: 'exact', head: true }).lt('stock_quantity', 10),
+      ])
+
+      setStats({
+        totalPatients: patients.count || 0,
+        todayRegistrations: todayOPs.count || 0,
+        waitingPatients: waitingOPs.count || 0,
+        pendingPrescriptions: pendingMeds.count || 0,
+        pendingTreatments: pendingTreatments.count || 0,
+        lowStockMedicines: lowStock.count || 0,
+      })
+    } else if (role === 'admin') {
       const [patients, todayOPs, pendingMeds, pendingTreatments, lowStock] = await Promise.all([
         supabase.from('patients').select('*', { count: 'exact', head: true }),
         supabase.from('op_registrations').select('*', { count: 'exact', head: true }).eq('registration_date', today),
@@ -103,6 +122,7 @@ export default function DashboardPage() {
       doctor: 'View and serve your patients',
       pharmacist: 'Manage medicine prescriptions',
       physical_medicine: 'Handle physical treatment prescriptions',
+      staff: 'Unified access to all staff functions',
     }
     return greetings[user.role] || 'Welcome to your dashboard'
   }
@@ -364,6 +384,154 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {user.role === 'staff' && (
+        <>
+          {/* Staff Role - Combined Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Receptionist Section */}
+            <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold">📝 Receptionist</h3>
+                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="bg-white/10 rounded-lg p-3">
+                  <p className="text-blue-100 text-xs mb-1">Total Patients</p>
+                  <p className="text-2xl font-bold">{stats.totalPatients}</p>
+                </div>
+                <div className="bg-white/10 rounded-lg p-3">
+                  <p className="text-blue-100 text-xs mb-1">Today's OPs</p>
+                  <p className="text-2xl font-bold">{stats.todayRegistrations}</p>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/20">
+                <a href="/dashboard/receptionist/registration" className="text-white text-sm font-medium hover:text-blue-100 flex items-center">
+                  Register OP →
+                </a>
+              </div>
+            </div>
+
+            {/* Doctor Section */}
+            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold">👨‍⚕️ Doctor</h3>
+                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="bg-white/10 rounded-lg p-3">
+                  <p className="text-green-100 text-xs mb-1">Waiting Patients</p>
+                  <p className="text-2xl font-bold">{stats.waitingPatients}</p>
+                </div>
+                <div className="bg-white/10 rounded-lg p-3">
+                  <p className="text-green-100 text-xs mb-1">Pending Treatments</p>
+                  <p className="text-2xl font-bold">{stats.pendingTreatments}</p>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/20">
+                <a href="/dashboard/doctor/op-list" className="text-white text-sm font-medium hover:text-green-100 flex items-center">
+                  View Queue →
+                </a>
+              </div>
+            </div>
+
+            {/* Pharmacist Section */}
+            <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold">💊 Pharmacist</h3>
+                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="bg-white/10 rounded-lg p-3">
+                  <p className="text-purple-100 text-xs mb-1">Pending Prescriptions</p>
+                  <p className="text-2xl font-bold">{stats.pendingPrescriptions}</p>
+                </div>
+                <div className="bg-white/10 rounded-lg p-3">
+                  <p className="text-purple-100 text-xs mb-1">Low Stock Items</p>
+                  <p className="text-2xl font-bold">{stats.lowStockMedicines}</p>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/20">
+                <a href="/dashboard/pharmacist/prescriptions" className="text-white text-sm font-medium hover:text-purple-100 flex items-center">
+                  Manage Prescriptions →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions for Staff */}
+          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
+              <svg className="w-6 h-6 text-indigo-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Quick Actions
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <a href="/dashboard/receptionist/registration" className="group p-4 bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl hover:shadow-lg hover:scale-105 transition-all">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform mx-auto">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-blue-900 text-sm text-center">OP Registration</h4>
+              </a>
+              <a href="/dashboard/receptionist/patients" className="group p-4 bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl hover:shadow-lg hover:scale-105 transition-all">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform mx-auto">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-blue-900 text-sm text-center">Patients</h4>
+              </a>
+              <a href="/dashboard/doctor/op-list" className="group p-4 bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 rounded-xl hover:shadow-lg hover:scale-105 transition-all">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform mx-auto">
+                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-green-900 text-sm text-center">OP List</h4>
+              </a>
+              <a href="/dashboard/doctor/served" className="group p-4 bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 rounded-xl hover:shadow-lg hover:scale-105 transition-all">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform mx-auto">
+                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-green-900 text-sm text-center">Served</h4>
+              </a>
+              <a href="/dashboard/pharmacist/prescriptions" className="group p-4 bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-xl hover:shadow-lg hover:scale-105 transition-all">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform mx-auto">
+                  <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-purple-900 text-sm text-center">Prescriptions</h4>
+              </a>
+              <a href="/dashboard/pharmacist/stock" className="group p-4 bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-xl hover:shadow-lg hover:scale-105 transition-all">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform mx-auto">
+                  <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-purple-900 text-sm text-center">Stock</h4>
+              </a>
+            </div>
+          </div>
+        </>
       )}
 
       {user.role === 'physical_medicine' && (
