@@ -41,7 +41,7 @@ export default function DashboardLayout({
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -101,11 +101,11 @@ export default function DashboardLayout({
   const getRoleBadgeColor = (role: UserRole) => {
     const colors: Record<UserRole, string> = {
       admin: 'bg-purple-100 text-purple-800',
-      receptionist: 'bg-blue-100 text-blue-800',
-      doctor: 'bg-green-100 text-green-800',
-      pharmacist: 'bg-orange-100 text-orange-800',
-      physical_medicine: 'bg-pink-100 text-pink-800',
-      staff: 'bg-indigo-100 text-indigo-800',
+      receptionist: 'bg-teal-100 text-teal-800',
+      doctor: 'bg-emerald-100 text-emerald-800',
+      pharmacist: 'bg-cyan-100 text-cyan-800',
+      physical_medicine: 'bg-green-100 text-green-800',
+      staff: 'bg-teal-100 text-teal-800',
     }
     return colors[role]
   }
@@ -113,12 +113,12 @@ export default function DashboardLayout({
   return (
     <div className="h-screen flex bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-blue-50/80 backdrop-blur-sm border-r border-blue-100 flex-shrink-0 hidden md:flex flex-col">
+      <aside className="w-64 bg-emerald-50/80 backdrop-blur-sm border-r border-emerald-100 flex-shrink-0 hidden md:flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-blue-200">
+        <div className="p-6 border-b border-emerald-200">
           <div className="flex items-center">
-            <img src="/logo2.png" alt="Sanjeevani Ayurvedica" className="w-10 h-10 rounded-lg shadow-md" />
-            <span className="ml-3 text-lg font-bold text-blue-900">Sanjeevani Ayurvedica</span>
+            <img src="/logo2.png" alt="Sanjeevani Ayurvedics" className="w-10 h-10 rounded-lg shadow-md" />
+            <span className="ml-3 text-lg font-bold text-teal-900">Sanjeevani Ayurvedics</span>
           </div>
         </div>
 
@@ -132,8 +132,8 @@ export default function DashboardLayout({
                 href={link.href}
                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                   isActive
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-blue-700 hover:bg-blue-100'
+                    ? 'bg-teal-600 text-white shadow-md'
+                    : 'text-teal-700 hover:bg-emerald-100'
                 }`}
               >
                 <span className="mr-3 text-lg">{link.icon}</span>
@@ -144,23 +144,23 @@ export default function DashboardLayout({
         </nav>
 
         {/* User Info */}
-        <div className="p-4 border-t border-blue-200">
+        <div className="p-4 border-t border-emerald-200">
           <div className="flex items-center mb-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-md">
+            <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center shadow-md">
               <span className="text-white font-semibold text-sm">
                 {user.full_name?.charAt(0) || 'U'}
               </span>
             </div>
             <div className="ml-3 flex-1">
-              <p className="text-sm font-semibold text-blue-900 truncate">{user.full_name}</p>
-              <span className="text-xs text-blue-600">
+              <p className="text-sm font-semibold text-teal-900 truncate">{user.full_name}</p>
+              <span className="text-xs text-teal-600">
                 {user.role.replace('_', ' ')}
               </span>
             </div>
           </div>
           <button
             onClick={handleSignOut}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-lg transition-colors flex items-center justify-center shadow-md"
+            className="w-full bg-teal-600 hover:bg-teal-700 text-white text-sm py-2 px-4 rounded-lg transition-colors flex items-center justify-center shadow-md"
           >
             <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -173,7 +173,7 @@ export default function DashboardLayout({
       {/* Mobile Menu Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-blue-900 text-white rounded-lg shadow-lg"
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-teal-900 text-white rounded-lg shadow-lg"
       >
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -183,11 +183,11 @@ export default function DashboardLayout({
       {/* Mobile Sidebar */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setMobileMenuOpen(false)}>
-          <aside className="w-64 bg-blue-50/95 backdrop-blur-md border-r border-blue-100 h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
-            <div className="p-6 border-b border-blue-200">
+          <aside className="w-64 bg-emerald-50/95 backdrop-blur-md border-r border-emerald-100 h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6 border-b border-emerald-200">
               <div className="flex items-center">
-                <img src="/logo2.png" alt="Sanjeevani Ayurvedica" className="w-10 h-10 rounded-lg shadow-md" />
-                <span className="ml-3 text-lg font-bold text-blue-900">Sanjeevani Ayurvedica</span>
+                <img src="/logo2.png" alt="Sanjeevani Ayurvedics" className="w-10 h-10 rounded-lg shadow-md" />
+                <span className="ml-3 text-lg font-bold text-teal-900">Sanjeevani Ayurvedics</span>
               </div>
             </div>
             <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
@@ -200,8 +200,8 @@ export default function DashboardLayout({
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                       isActive
-                        ? 'bg-blue-600 text-white shadow-md'
-                        : 'text-blue-700 hover:bg-blue-100'
+                        ? 'bg-teal-600 text-white shadow-md'
+                        : 'text-teal-700 hover:bg-emerald-100'
                     }`}
                   >
                     <span className="mr-3 text-lg">{link.icon}</span>
@@ -210,23 +210,23 @@ export default function DashboardLayout({
                 )
               })}
             </nav>
-            <div className="p-4 border-t border-blue-200">
+            <div className="p-4 border-t border-emerald-200">
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-md">
+                <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center shadow-md">
                   <span className="text-white font-semibold text-sm">
                     {user.full_name?.charAt(0) || 'U'}
                   </span>
                 </div>
                 <div className="ml-3 flex-1">
-                  <p className="text-sm font-semibold text-blue-900 truncate">{user.full_name}</p>
-                  <span className="text-xs text-blue-600">
+                  <p className="text-sm font-semibold text-teal-900 truncate">{user.full_name}</p>
+                  <span className="text-xs text-teal-600">
                     {user.role.replace('_', ' ')}
                   </span>
                 </div>
               </div>
               <button
                 onClick={handleSignOut}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-lg transition-colors flex items-center justify-center shadow-md"
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white text-sm py-2 px-4 rounded-lg transition-colors flex items-center justify-center shadow-md"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -247,3 +247,4 @@ export default function DashboardLayout({
     </div>
   )
 }
+

@@ -98,7 +98,7 @@ export default function BillingPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading billing data...</p>
         </div>
       </div>
@@ -153,14 +153,14 @@ export default function BillingPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gradient-to-r from-blue-50 to-blue-100 border-b-2 border-blue-200">
+              <thead className="bg-gradient-to-r from-emerald-50 to-teal-100 border-b-2 border-emerald-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-blue-900 uppercase">OP #</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-blue-900 uppercase">Patient</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-blue-900 uppercase">Doctor</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-blue-900 uppercase">Services</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-blue-900 uppercase">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-blue-900 uppercase">Action</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-teal-900 uppercase">OP #</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-teal-900 uppercase">Patient</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-teal-900 uppercase">Doctor</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-teal-900 uppercase">Services</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-teal-900 uppercase">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-teal-900 uppercase">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-blue-100">
@@ -170,9 +170,9 @@ export default function BillingPage() {
                   const total = calculateTotal(op)
                   
                   return (
-                    <tr key={op.id} className="hover:bg-blue-50 transition-colors">
+                    <tr key={op.id} className="hover:bg-emerald-50 transition-colors">
                       <td className="px-6 py-4">
-                        <span className="font-bold text-blue-600">OP{String(index + 1).padStart(2, '0')}</span>
+                        <span className="font-bold text-teal-600">OP{String(index + 1).padStart(2, '0')}</span>
                       </td>
                       <td className="px-6 py-4">
                         <div>
@@ -189,7 +189,7 @@ export default function BillingPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-lg font-bold text-blue-600">₹{total.toFixed(2)}</span>
+                        <span className="text-lg font-bold text-teal-600">₹{total.toFixed(2)}</span>
                       </td>
                       <td className="px-6 py-4">
                         <button
@@ -210,3 +210,4 @@ export default function BillingPage() {
     </div>
   )
 }
+

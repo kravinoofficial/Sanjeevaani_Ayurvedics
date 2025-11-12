@@ -509,7 +509,7 @@ export default function ReceptionistRegistrationPage() {
         <body>
           <div class="ticket-container">
             <div class="header">
-              <h1>Sanjeevani Ayurvedica</h1>
+              <h1>Sanjeevani Ayurvedics</h1>
               <p>Outpatient Department</p>
               <p style="font-size: 11px; margin-top: 4px;">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
             </div>
@@ -574,7 +574,7 @@ export default function ReceptionistRegistrationPage() {
             
             <div class="footer">
               <p>Please keep this ticket for reference. Show it to the doctor during consultation.</p>
-              <p style="margin-top: 8px;">Thank you for choosing Sanjeevani Ayurvedica 🌿</p>
+              <p style="margin-top: 8px;">Thank you for choosing Sanjeevani Ayurvedics 🌿</p>
             </div>
           </div>
         </body>
@@ -681,10 +681,43 @@ export default function ReceptionistRegistrationPage() {
 
   const selectedPatientData = patients.find(p => p.id === selectedPatient)
 
-  const handlePatientSelect = (patientId: string) => {
+  const checkRecentOP = async (patientId: string) => {
+    try {
+      // Check if patient had an OP in the last 7 days
+      const sevenDaysAgo = new Date()
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+
+      const { data, error } = await supabase
+        .from('op_registrations')
+        .select('registration_date')
+        .eq('patient_id', patientId)
+        .gte('registration_date', sevenDaysAgo.toISOString().split('T')[0])
+        .order('registration_date', { ascending: false })
+        .limit(1)
+
+      if (data && data.length > 0) {
+        // Patient had an OP in last 7 days - free consultation
+        setConsultationFee(0)
+        return true
+      } else {
+        // No recent OP - load normal consultation fee
+        await loadConsultationFee()
+        return false
+      }
+    } catch (error) {
+      console.error('Error checking recent OP:', error)
+      await loadConsultationFee()
+      return false
+    }
+  }
+
+  const handlePatientSelect = async (patientId: string) => {
     setSelectedPatient(patientId)
     setPatientSearch('')
     setShowPatientDropdown(false)
+    
+    // Check if patient had recent OP for free consultation
+    await checkRecentOP(patientId)
   }
 
   return (
@@ -699,8 +732,8 @@ export default function ReceptionistRegistrationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-4">
               {/* OP Number Display */}
-              <div className="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg">
-                <p className="text-blue-100 text-sm font-medium">Next OP Number</p>
+              <div className="p-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg">
+                <p className="text-emerald-100 text-sm font-medium">Next OP Number</p>
                 <p className="text-3xl font-bold mt-1">{nextOpNumber}</p>
               </div>
 
@@ -712,7 +745,7 @@ export default function ReceptionistRegistrationPage() {
                   <button
                     type="button"
                     onClick={() => setShowAddPatient(true)}
-                    className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
+                    className="text-sm text-teal-600 hover:text-teal-800 font-medium flex items-center gap-1"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -750,7 +783,7 @@ export default function ReceptionistRegistrationPage() {
                         <div
                           key={patient.id}
                           onClick={() => handlePatientSelect(patient.id)}
-                          className="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                          className="px-4 py-3 hover:bg-emerald-50 cursor-pointer border-b border-gray-100 last:border-b-0"
                         >
                           <div className="font-medium text-gray-900">{patient.full_name}</div>
                           <div className="text-sm text-gray-600">
@@ -791,8 +824,8 @@ export default function ReceptionistRegistrationPage() {
               </div>
 
               {selectedPatientData && (
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">Patient Information</h4>
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                  <h4 className="font-semibold text-teal-900 mb-2">Patient Information</h4>
                   <div className="space-y-1 text-sm">
                     <p><span className="font-medium">ID:</span> {selectedPatientData.patient_id}</p>
                     <p><span className="font-medium">Name:</span> {selectedPatientData.full_name}</p>
@@ -821,8 +854,17 @@ export default function ReceptionistRegistrationPage() {
                 <h4 className="font-semibold text-green-900 mb-3">Payment Details</h4>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-700 font-medium">Consultation Fee:</span>
-                    <span className="text-2xl font-bold text-green-700">₹{consultationFee}</span>
+                    <div>
+                      <span className="text-gray-700 font-medium">Consultation Fee:</span>
+                      {consultationFee === 0 && selectedPatient && (
+                        <span className="ml-2 text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded">
+                          FREE - Recent OP (within 7 days)
+                        </span>
+                      )}
+                    </div>
+                    <span className={`text-2xl font-bold ${consultationFee === 0 ? 'text-teal-700' : 'text-green-700'}`}>
+                      ₹{consultationFee}
+                    </span>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -848,7 +890,7 @@ export default function ReceptionistRegistrationPage() {
                 disabled={loading}
                 className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Processing...' : `✓ Register & Collect ₹${consultationFee}`}
+                {loading ? 'Processing...' : consultationFee === 0 ? '✓ Register (Free Consultation)' : `✓ Register & Collect ₹${consultationFee}`}
               </button>
             </div>
 
@@ -871,7 +913,7 @@ export default function ReceptionistRegistrationPage() {
                             <p className="font-medium text-gray-900">{reg.patients?.full_name}</p>
                             <button
                               onClick={() => viewExistingTicket(reg)}
-                              className="text-blue-600 hover:text-blue-800 text-xs flex items-center gap-1 px-2 py-1 rounded hover:bg-blue-50 transition-colors"
+                              className="text-teal-600 hover:text-teal-800 text-xs flex items-center gap-1 px-2 py-1 rounded hover:bg-emerald-50 transition-colors"
                               title="View OP Ticket"
                             >
                               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -888,7 +930,7 @@ export default function ReceptionistRegistrationPage() {
                         </span>
                       </div>
                       {reg.users && (
-                        <p className="text-xs text-blue-600 mb-1">
+                        <p className="text-xs text-teal-600 mb-1">
                           👨‍⚕️ Dr. {reg.users.full_name}
                         </p>
                       )}
@@ -904,14 +946,14 @@ export default function ReceptionistRegistrationPage() {
         </form>
       </div>
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Registration Tips</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Registration Tips</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• Each OP registration gets a unique OP number</li>
               <li>• Consultation fee is collected at registration</li>
               <li>• You can assign a specific doctor or leave it for later</li>
@@ -929,18 +971,18 @@ export default function ReceptionistRegistrationPage() {
           <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col">
             {/* Ticket Content - Scrollable */}
             <div className="p-8 overflow-y-auto flex-1">
-              <div className="border-4 border-blue-600 rounded-lg p-6">
+              <div className="border-4 border-teal-600 rounded-lg p-6">
                 {/* Header */}
-                <div className="text-center border-b-2 border-blue-600 pb-4 mb-6">
-                  <h1 className="text-3xl font-bold text-blue-900">Sanjeevani Ayurvedica 🌿</h1>
+                <div className="text-center border-b-2 border-teal-600 pb-4 mb-6">
+                  <h1 className="text-3xl font-bold text-teal-900">Sanjeevani Ayurvedics 🌿</h1>
                   <p className="text-gray-600 text-sm mt-1">Outpatient Department</p>
                   <p className="text-xs text-gray-500 mt-1">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
                 </div>
 
                 {/* OP Number - Large Display */}
-                <div className="text-center mb-6 bg-blue-50 py-4 rounded-lg border-2 border-blue-300">
-                  <p className="text-sm text-blue-600 font-medium">OP NUMBER</p>
-                  <p className="text-5xl font-bold text-blue-900 mt-1">{ticketData.opNumber}</p>
+                <div className="text-center mb-6 bg-emerald-50 py-4 rounded-lg border-2 border-teal-300">
+                  <p className="text-sm text-teal-600 font-medium">OP NUMBER</p>
+                  <p className="text-5xl font-bold text-teal-900 mt-1">{ticketData.opNumber}</p>
                 </div>
 
                 {/* Patient Details */}
@@ -1022,7 +1064,7 @@ export default function ReceptionistRegistrationPage() {
                     Please keep this ticket for reference. Show it to the doctor during consultation.
                   </p>
                   <p className="text-xs text-gray-500 mt-2">
-                    Thank you for choosing Sanjeevani Ayurvedica 🌿
+                    Thank you for choosing Sanjeevani Ayurvedics 🌿
                   </p>
                 </div>
               </div>
@@ -1154,3 +1196,4 @@ export default function ReceptionistRegistrationPage() {
     </div>
   )
 }
+

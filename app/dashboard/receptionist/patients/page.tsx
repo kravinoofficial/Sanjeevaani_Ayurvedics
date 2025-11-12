@@ -126,9 +126,9 @@ export default function ReceptionistPatientsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-600 font-medium mb-1">Total Patients</p>
-            <p className="text-3xl font-bold text-blue-900">{patients.length}</p>
+          <div className="p-4 bg-gradient-to-br from-emerald-50 to-teal-100 rounded-lg border border-emerald-200">
+            <p className="text-sm text-teal-600 font-medium mb-1">Total Patients</p>
+            <p className="text-3xl font-bold text-teal-900">{patients.length}</p>
           </div>
           <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
             <p className="text-sm text-green-600 font-medium mb-1">Male</p>
@@ -270,7 +270,7 @@ export default function ReceptionistPatientsPage() {
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg transition-colors ${
-                viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                viewMode === 'grid' ? 'bg-teal-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -280,7 +280,7 @@ export default function ReceptionistPatientsPage() {
             <button
               onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg transition-colors ${
-                viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                viewMode === 'list' ? 'bg-teal-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -308,12 +308,12 @@ export default function ReceptionistPatientsPage() {
             {filteredPatients.map((patient) => (
               <div
                 key={patient.id}
-                className="p-5 bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-lg transition-all cursor-pointer"
+                className="p-5 bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 rounded-xl hover:border-teal-300 hover:shadow-lg transition-all cursor-pointer"
                 onClick={() => router.push(`/dashboard/patients/${patient.id}`)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-xl font-bold mr-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white text-xl font-bold mr-3">
                       {patient.full_name.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -339,7 +339,7 @@ export default function ReceptionistPatientsPage() {
                   )}
                 </div>
                 <div className="mt-4 pt-3 border-t border-gray-200">
-                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                  <button className="text-teal-600 hover:text-teal-800 font-medium text-sm flex items-center">
                     View Details
                     <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -366,7 +366,7 @@ export default function ReceptionistPatientsPage() {
                   <tr key={patient.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
                           {patient.full_name.charAt(0).toUpperCase()}
                         </div>
                         <div>
@@ -385,7 +385,7 @@ export default function ReceptionistPatientsPage() {
                     <td className="px-6 py-4">
                       <button
                         onClick={() => router.push(`/dashboard/patients/${patient.id}`)}
-                        className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                        className="text-teal-600 hover:text-teal-800 font-medium text-sm"
                       >
                         View Details →
                       </button>
@@ -400,3 +400,4 @@ export default function ReceptionistPatientsPage() {
     </div>
   )
 }
+

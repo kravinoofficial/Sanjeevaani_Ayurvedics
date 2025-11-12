@@ -56,7 +56,7 @@ export default function DoctorOPListPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading OP list...</p>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default function DoctorOPListPage() {
                   return (
                     <tr key={reg.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-semibold text-sm">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-semibold text-sm">
                           {index + 1}
                         </span>
                       </td>
@@ -168,14 +168,14 @@ export default function DoctorOPListPage() {
         )}
       </div>
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Queue Information</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Queue Information</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• Patients are listed in order of registration time</li>
               <li>• Red badges indicate patients waiting more than 30 minutes</li>
               <li>• List auto-refreshes every 30 seconds</li>
@@ -187,3 +187,4 @@ export default function DoctorOPListPage() {
     </div>
   )
 }
+

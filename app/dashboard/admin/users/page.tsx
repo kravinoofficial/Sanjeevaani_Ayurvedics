@@ -98,7 +98,7 @@ export default function AdminUsersPage() {
   const getRoleBadge = (role: UserRole) => {
     const colors: Record<UserRole, string> = {
       admin: 'bg-purple-100 text-purple-800',
-      receptionist: 'bg-blue-100 text-blue-800',
+      receptionist: 'bg-teal-100 text-teal-800',
       doctor: 'bg-green-100 text-green-800',
       pharmacist: 'bg-orange-100 text-orange-800',
       physical_medicine: 'bg-pink-100 text-pink-800',
@@ -210,8 +210,8 @@ export default function AdminUsersPage() {
                 <tr key={user.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        <span className="text-blue-600 font-semibold">{user.full_name.charAt(0)}</span>
+                      <div className="flex-shrink-0 h-10 w-10 bg-teal-100 rounded-full flex items-center justify-center">
+                        <span className="text-teal-600 font-semibold">{user.full_name.charAt(0)}</span>
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">{user.full_name}</div>
@@ -256,3 +256,4 @@ export default function AdminUsersPage() {
     </div>
   )
 }
+

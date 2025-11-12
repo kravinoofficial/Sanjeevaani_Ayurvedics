@@ -73,16 +73,16 @@ export default function AdminDoctorsPage() {
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">Total Doctors</p>
-            <p className="text-3xl font-bold text-blue-900 mt-1">{stats.total}</p>
+            <p className="text-sm text-teal-700 font-medium">Total Doctors</p>
+            <p className="text-3xl font-bold text-teal-900 mt-1">{stats.total}</p>
           </div>
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">Active Doctors</p>
-            <p className="text-3xl font-bold text-blue-900 mt-1">{stats.active}</p>
+            <p className="text-sm text-teal-700 font-medium">Active Doctors</p>
+            <p className="text-3xl font-bold text-teal-900 mt-1">{stats.active}</p>
           </div>
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">Inactive Doctors</p>
-            <p className="text-3xl font-bold text-blue-900 mt-1">{stats.inactive}</p>
+            <p className="text-sm text-teal-700 font-medium">Inactive Doctors</p>
+            <p className="text-3xl font-bold text-teal-900 mt-1">{stats.inactive}</p>
           </div>
         </div>
 
@@ -152,14 +152,14 @@ export default function AdminDoctorsPage() {
         )}
       </div>
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Doctor Management Tips</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Doctor Management Tips</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• Active doctors can login and see patients in OP list</li>
               <li>• Inactive doctors cannot login to the system</li>
               <li>• To add new doctors, go to Users page and create with "Doctor" role</li>
@@ -171,3 +171,4 @@ export default function AdminDoctorsPage() {
     </div>
   )
 }
+

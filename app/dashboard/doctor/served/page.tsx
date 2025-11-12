@@ -162,7 +162,7 @@ export default function DoctorServedPatientsPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading served patients...</p>
         </div>
       </div>
@@ -181,21 +181,21 @@ export default function DoctorServedPatientsPage() {
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-blue-100 border border-blue-200 p-4 rounded-lg">
-            <p className="text-blue-600 text-sm font-medium">Today</p>
-            <p className="text-3xl font-bold text-blue-700 mt-1">{stats.today}</p>
+          <div className="bg-teal-100 border border-emerald-200 p-4 rounded-lg">
+            <p className="text-teal-600 text-sm font-medium">Today</p>
+            <p className="text-3xl font-bold text-teal-700 mt-1">{stats.today}</p>
           </div>
-          <div className="bg-blue-100 border border-blue-200 p-4 rounded-lg">
-            <p className="text-blue-600 text-sm font-medium">This Week</p>
-            <p className="text-3xl font-bold text-blue-700 mt-1">{stats.week}</p>
+          <div className="bg-teal-100 border border-emerald-200 p-4 rounded-lg">
+            <p className="text-teal-600 text-sm font-medium">This Week</p>
+            <p className="text-3xl font-bold text-teal-700 mt-1">{stats.week}</p>
           </div>
-          <div className="bg-blue-100 border border-blue-200 p-4 rounded-lg">
-            <p className="text-blue-600 text-sm font-medium">This Month</p>
-            <p className="text-3xl font-bold text-blue-700 mt-1">{stats.month}</p>
+          <div className="bg-teal-100 border border-emerald-200 p-4 rounded-lg">
+            <p className="text-teal-600 text-sm font-medium">This Month</p>
+            <p className="text-3xl font-bold text-teal-700 mt-1">{stats.month}</p>
           </div>
-          <div className="bg-blue-100 border border-blue-200 p-4 rounded-lg">
-            <p className="text-blue-600 text-sm font-medium">Total</p>
-            <p className="text-3xl font-bold text-blue-700 mt-1">{stats.total}</p>
+          <div className="bg-teal-100 border border-emerald-200 p-4 rounded-lg">
+            <p className="text-teal-600 text-sm font-medium">Total</p>
+            <p className="text-3xl font-bold text-teal-700 mt-1">{stats.total}</p>
           </div>
         </div>
 
@@ -205,7 +205,7 @@ export default function DoctorServedPatientsPage() {
             onClick={() => setFilter('today')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'today'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-teal-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -215,7 +215,7 @@ export default function DoctorServedPatientsPage() {
             onClick={() => setFilter('week')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'week'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-teal-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -225,7 +225,7 @@ export default function DoctorServedPatientsPage() {
             onClick={() => setFilter('month')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'month'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-teal-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -235,7 +235,7 @@ export default function DoctorServedPatientsPage() {
             onClick={() => setFilter('all')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === 'all'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-teal-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -245,7 +245,7 @@ export default function DoctorServedPatientsPage() {
 
         {tableLoading ? (
           <div className="text-center py-16">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
             <p className="mt-4 text-gray-600">Loading patients...</p>
           </div>
         ) : servedPatients.length === 0 ? (
@@ -279,7 +279,7 @@ export default function DoctorServedPatientsPage() {
                 {servedPatients.map((op) => (
                   <tr key={op.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm font-bold text-blue-600">{getOPNumber(op)}</span>
+                      <span className="text-sm font-bold text-teal-600">{getOPNumber(op)}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
@@ -308,7 +308,7 @@ export default function DoctorServedPatientsPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={() => viewPrescriptions(op)}
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        className="text-teal-600 hover:text-teal-800 text-sm font-medium"
                       >
                         View Prescriptions
                       </button>
@@ -321,14 +321,14 @@ export default function DoctorServedPatientsPage() {
         )}
       </div>
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Served Patients Information</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Served Patients Information</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• View all patients you have consulted and served</li>
               <li>• Filter by time period (today, week, month, or all time)</li>
               <li>• Click "View Prescriptions" to see what you prescribed</li>
@@ -344,39 +344,39 @@ export default function DoctorServedPatientsPage() {
           <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="p-6">
               {/* Header */}
-              <div className="flex justify-between items-start border-b-4 border-blue-600 pb-4 mb-6">
+              <div className="flex justify-between items-start border-b-4 border-teal-600 pb-4 mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-800">Sanjeevani Ayurvedica 🌿</h1>
+                  <h1 className="text-2xl font-bold text-gray-800">Sanjeevani Ayurvedics 🌿</h1>
                   <p className="text-sm text-gray-600 mt-1">Outpatient Department</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-bold text-blue-600">{getOPNumber(selectedOP)}</div>
+                  <div className="text-xl font-bold text-teal-600">{getOPNumber(selectedOP)}</div>
                   <div className="text-sm text-gray-600">{new Date(selectedOP.registration_date).toLocaleDateString()}</div>
                 </div>
               </div>
 
               {/* Patient Information */}
-              <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h2 className="text-lg font-bold text-blue-900 mb-3">Patient Information</h2>
+              <div className="mb-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                <h2 className="text-lg font-bold text-teal-900 mb-3">Patient Information</h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-blue-600 font-medium">Patient ID</p>
+                    <p className="text-sm text-teal-600 font-medium">Patient ID</p>
                     <p className="text-gray-900 font-semibold">{selectedOP.patients?.patient_id}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-blue-600 font-medium">Name</p>
+                    <p className="text-sm text-teal-600 font-medium">Name</p>
                     <p className="text-gray-900 font-semibold">{selectedOP.patients?.full_name}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-blue-600 font-medium">Age / Gender</p>
+                    <p className="text-sm text-teal-600 font-medium">Age / Gender</p>
                     <p className="text-gray-900 font-semibold">{selectedOP.patients?.age} / {selectedOP.patients?.gender}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-blue-600 font-medium">Phone</p>
+                    <p className="text-sm text-teal-600 font-medium">Phone</p>
                     <p className="text-gray-900 font-semibold">{selectedOP.patients?.phone || 'N/A'}</p>
                   </div>
                   <div className="col-span-2">
-                    <p className="text-sm text-blue-600 font-medium">Doctor</p>
+                    <p className="text-sm text-teal-600 font-medium">Doctor</p>
                     <p className="text-gray-900 font-semibold">{selectedOP.doctor?.full_name || 'N/A'}</p>
                   </div>
                 </div>
@@ -401,7 +401,7 @@ export default function DoctorServedPatientsPage() {
               {selectedOP.medicine_prescriptions && selectedOP.medicine_prescriptions.length > 0 && (
                 <div className="mb-6">
                   <h2 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                     </svg>
                     Medicine Prescriptions
@@ -486,3 +486,4 @@ export default function DoctorServedPatientsPage() {
     </div>
   )
 }
+

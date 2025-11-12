@@ -99,7 +99,7 @@ export default function PharmacistPhysicalTreatmentsPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading treatments...</p>
         </div>
       </div>
@@ -148,19 +148,19 @@ export default function PharmacistPhysicalTreatmentsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-700 font-medium">Total Treatments</p>
-            <p className="text-3xl font-bold text-blue-900 mt-1">{treatments.length}</p>
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-100 p-4 rounded-lg border border-emerald-200">
+            <p className="text-sm text-teal-700 font-medium">Total Treatments</p>
+            <p className="text-3xl font-bold text-teal-900 mt-1">{treatments.length}</p>
           </div>
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-700 font-medium">Avg. Price</p>
-            <p className="text-3xl font-bold text-blue-900 mt-1">
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-100 p-4 rounded-lg border border-emerald-200">
+            <p className="text-sm text-teal-700 font-medium">Avg. Price</p>
+            <p className="text-3xl font-bold text-teal-900 mt-1">
               ₹{treatments.length > 0 ? (treatments.reduce((sum, t) => sum + Number(t.price || 0), 0) / treatments.length).toFixed(0) : '0'}
             </p>
           </div>
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-700 font-medium">Search Results</p>
-            <p className="text-3xl font-bold text-blue-900 mt-1">{filteredTreatments.length}</p>
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-100 p-4 rounded-lg border border-emerald-200">
+            <p className="text-sm text-teal-700 font-medium">Search Results</p>
+            <p className="text-3xl font-bold text-teal-900 mt-1">{filteredTreatments.length}</p>
           </div>
         </div>
 
@@ -188,7 +188,7 @@ export default function PharmacistPhysicalTreatmentsPage() {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {filteredTreatments.map((treatment, index) => (
-                  <tr key={treatment.id} className="hover:bg-blue-50 transition-colors">
+                  <tr key={treatment.id} className="hover:bg-emerald-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{index + 1}</td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-semibold text-gray-900">{treatment.name}</div>
@@ -200,12 +200,12 @@ export default function PharmacistPhysicalTreatmentsPage() {
                       <div className="text-sm text-gray-600">{treatment.duration_unit || '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-bold text-blue-600">₹{Number(treatment.price || 0).toFixed(2)}</div>
+                      <div className="text-sm font-bold text-teal-600">₹{Number(treatment.price || 0).toFixed(2)}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <button
                         onClick={() => handleEdit(treatment)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-teal-600 hover:text-teal-900"
                       >
                         Edit
                       </button>
@@ -293,3 +293,4 @@ export default function PharmacistPhysicalTreatmentsPage() {
     </div>
   )
 }
+

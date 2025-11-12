@@ -248,7 +248,7 @@ export default function AdminReportsPage() {
       title: 'Daily Patient Report',
       description: 'View all patients registered on a specific date',
       icon: '📅',
-      color: 'from-blue-500 to-blue-600'
+      color: 'from-emerald-500 to-teal-600'
     },
     {
       id: 'date-range-patients' as ReportType,
@@ -449,13 +449,13 @@ export default function AdminReportsPage() {
               {/* Daily Patient Report */}
               {selectedReport === 'daily-patients' && Array.isArray(reportData) && (
                 <div>
-                  <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg mb-6">
-                    <h4 className="text-xl font-bold text-blue-900 mb-2">Daily Patient Report</h4>
-                    <p className="text-blue-700">Date: {new Date(selectedDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                  <div className="bg-gradient-to-r from-emerald-50 to-teal-100 p-6 rounded-lg mb-6">
+                    <h4 className="text-xl font-bold text-teal-900 mb-2">Daily Patient Report</h4>
+                    <p className="text-teal-700">Date: {new Date(selectedDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                     <div className="grid grid-cols-3 gap-4 mt-4">
                       <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm text-gray-600">Total Patients</p>
-                        <p className="text-3xl font-bold text-blue-600">{reportData.length}</p>
+                        <p className="text-3xl font-bold text-teal-600">{reportData.length}</p>
                       </div>
                       <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm text-gray-600">Completed</p>
@@ -529,7 +529,7 @@ export default function AdminReportsPage() {
                       </div>
                       <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm text-gray-600">Avg. per Day</p>
-                        <p className="text-3xl font-bold text-blue-600">
+                        <p className="text-3xl font-bold text-teal-600">
                           {Math.round(reportData.length / Math.max(1, Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24))))}
                         </p>
                       </div>
@@ -661,7 +661,7 @@ export default function AdminReportsPage() {
                       </div>
                       <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm text-gray-600">Min Quantity</p>
-                        <p className="text-3xl font-bold text-blue-600">{reportData.item.min_quantity || 0}</p>
+                        <p className="text-3xl font-bold text-teal-600">{reportData.item.min_quantity || 0}</p>
                       </div>
                       <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm text-gray-600">Total Transactions</p>
@@ -694,7 +694,7 @@ export default function AdminReportsPage() {
                               <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                                 trans.transaction_type === 'in' ? 'bg-green-100 text-green-800' :
                                 trans.transaction_type === 'out' ? 'bg-red-100 text-red-800' :
-                                'bg-blue-100 text-blue-800'
+                                'bg-teal-100 text-teal-800'
                               }`}>
                                 {trans.transaction_type}
                               </span>
@@ -799,3 +799,4 @@ export default function AdminReportsPage() {
     </div>
   )
 }
+

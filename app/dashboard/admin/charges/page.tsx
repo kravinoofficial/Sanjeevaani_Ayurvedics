@@ -102,7 +102,7 @@ export default function ConsultationFeePage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default function ConsultationFeePage() {
         {consultationFee ? (
           <div className="max-w-2xl">
             {/* Current Fee Display */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 border-2 border-blue-200 mb-6">
+            <div className="bg-gradient-to-br from-emerald-50 to-teal-100 rounded-xl p-8 border-2 border-emerald-200 mb-6">
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h3 className="text-xl font-bold text-gray-800 mb-2">Current Consultation Fee</h3>
@@ -141,12 +141,12 @@ export default function ConsultationFeePage() {
               
               <div className="bg-white/60 backdrop-blur-sm rounded-xl p-8 text-center">
                 <div className="text-sm text-gray-600 mb-2">Consultation Fee</div>
-                <div className="text-6xl font-bold text-blue-600">₹{Number(consultationFee.amount).toFixed(2)}</div>
+                <div className="text-6xl font-bold text-teal-600">₹{Number(consultationFee.amount).toFixed(2)}</div>
               </div>
             </div>
 
             {/* Details */}
-            <div className="bg-white/40 backdrop-blur-sm border border-blue-100 rounded-xl p-6">
+            <div className="bg-white/40 backdrop-blur-sm border border-emerald-100 rounded-xl p-6">
               <h4 className="text-sm font-semibold text-gray-700 mb-4">Details</h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
@@ -164,7 +164,7 @@ export default function ConsultationFeePage() {
                 <div>
                   <span className="text-gray-600">Status:</span>
                   <span className="ml-2">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">
+                    <span className="px-2 py-1 bg-teal-100 text-teal-700 rounded text-xs font-semibold">
                       {consultationFee.is_active ? 'Active' : 'Inactive'}
                     </span>
                   </span>
@@ -173,7 +173,7 @@ export default function ConsultationFeePage() {
             </div>
           </div>
         ) : (
-          <div className="max-w-2xl bg-white/40 backdrop-blur-sm border border-blue-100 rounded-xl p-12 text-center">
+          <div className="max-w-2xl bg-white/40 backdrop-blur-sm border border-emerald-100 rounded-xl p-12 text-center">
             <svg className="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -241,3 +241,4 @@ export default function ConsultationFeePage() {
     </div>
   )
 }
+

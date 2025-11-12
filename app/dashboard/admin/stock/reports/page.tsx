@@ -93,7 +93,7 @@ export default function StockReportsPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading stock reports...</p>
         </div>
       </div>
@@ -141,8 +141,8 @@ export default function StockReportsPage() {
                   onClick={() => setSelectedItem(item)}
                   className={`w-full text-left p-3 rounded-lg border transition-all ${
                     selectedItem?.id === item.id
-                      ? 'bg-blue-100 border-blue-300'
-                      : 'bg-white border-gray-200 hover:border-blue-200'
+                      ? 'bg-teal-100 border-teal-300'
+                      : 'bg-white border-gray-200 hover:border-emerald-200'
                   }`}
                 >
                   <div className="font-medium text-gray-900">{item.name}</div>
@@ -168,24 +168,24 @@ export default function StockReportsPage() {
               <div>
                 {/* Item Header */}
                 <div className="stat-card mb-6">
-                  <h3 className="text-xl font-bold text-blue-900 mb-2">{selectedItem.name}</h3>
+                  <h3 className="text-xl font-bold text-teal-900 mb-2">{selectedItem.name}</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                      <p className="text-blue-600 font-medium">Current Stock</p>
-                      <p className="text-2xl font-bold text-blue-900">{selectedItem.quantity}</p>
-                      <p className="text-xs text-blue-600">{selectedItem.unit}</p>
+                      <p className="text-teal-600 font-medium">Current Stock</p>
+                      <p className="text-2xl font-bold text-teal-900">{selectedItem.quantity}</p>
+                      <p className="text-xs text-teal-600">{selectedItem.unit}</p>
                     </div>
                     <div>
-                      <p className="text-blue-600 font-medium">Min Quantity</p>
-                      <p className="text-2xl font-bold text-blue-900">{selectedItem.min_quantity}</p>
+                      <p className="text-teal-600 font-medium">Min Quantity</p>
+                      <p className="text-2xl font-bold text-teal-900">{selectedItem.min_quantity}</p>
                     </div>
                     <div>
-                      <p className="text-blue-600 font-medium">Price</p>
-                      <p className="text-2xl font-bold text-blue-900">₹{selectedItem.price?.toFixed(2)}</p>
+                      <p className="text-teal-600 font-medium">Price</p>
+                      <p className="text-2xl font-bold text-teal-900">₹{selectedItem.price?.toFixed(2)}</p>
                     </div>
                     <div>
-                      <p className="text-blue-600 font-medium">Category</p>
-                      <p className="text-lg font-bold text-blue-900 capitalize">{selectedItem.category}</p>
+                      <p className="text-teal-600 font-medium">Category</p>
+                      <p className="text-lg font-bold text-teal-900 capitalize">{selectedItem.category}</p>
                     </div>
                   </div>
                 </div>
@@ -193,16 +193,16 @@ export default function StockReportsPage() {
                 {/* Transaction Stats */}
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   <div className="stat-card">
-                    <p className="text-sm text-blue-700 font-medium">Total In</p>
+                    <p className="text-sm text-teal-700 font-medium">Total In</p>
                     <p className="text-2xl font-bold text-green-600">+{stats.totalIn}</p>
                   </div>
                   <div className="stat-card">
-                    <p className="text-sm text-blue-700 font-medium">Total Out</p>
+                    <p className="text-sm text-teal-700 font-medium">Total Out</p>
                     <p className="text-2xl font-bold text-red-600">-{stats.totalOut}</p>
                   </div>
                   <div className="stat-card">
-                    <p className="text-sm text-blue-700 font-medium">Adjustments</p>
-                    <p className="text-2xl font-bold text-blue-900">{stats.adjustments}</p>
+                    <p className="text-sm text-teal-700 font-medium">Adjustments</p>
+                    <p className="text-2xl font-bold text-teal-900">{stats.adjustments}</p>
                   </div>
                 </div>
 
@@ -241,7 +241,7 @@ export default function StockReportsPage() {
                       {transactions.map((transaction) => (
                         <div
                           key={transaction.id}
-                          className="p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-blue-200 transition-colors"
+                          className="p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-emerald-200 transition-colors"
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
@@ -252,7 +252,7 @@ export default function StockReportsPage() {
                                       ? 'bg-green-100 text-green-800'
                                       : transaction.transaction_type === 'out'
                                       ? 'bg-red-100 text-red-800'
-                                      : 'bg-blue-100 text-blue-800'
+                                      : 'bg-teal-100 text-teal-800'
                                   }`}
                                 >
                                   {transaction.transaction_type.toUpperCase()}
@@ -306,14 +306,14 @@ export default function StockReportsPage() {
         </div>
       </div>
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Stock Reports</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Stock Reports</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• View complete transaction history for each item</li>
               <li>• Track stock in, stock out, and adjustments</li>
               <li>• Filter by date range for specific periods</li>
@@ -326,3 +326,4 @@ export default function StockReportsPage() {
     </div>
   )
 }
+

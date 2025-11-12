@@ -214,7 +214,7 @@ export default function AdminMedicinesPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
                       onClick={() => handleEdit(medicine)}
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      className="text-teal-600 hover:text-teal-800 font-medium"
                     >
                       Edit
                     </button>
@@ -238,3 +238,4 @@ export default function AdminMedicinesPage() {
     </div>
   )
 }
+

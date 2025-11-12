@@ -1,6 +1,6 @@
 # Security Audit Report - Hospital Management System
 **Date:** November 12, 2025
-**System:** Sanjeevani Ayurvedica Hospital Management System
+**System:** Sanjeevani Ayurvedics Hospital Management System
 
 ## Executive Summary
 This report identifies critical security vulnerabilities and data protection issues in the hospital management system. **IMMEDIATE ACTION REQUIRED** on several high-priority items.

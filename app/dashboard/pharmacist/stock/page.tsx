@@ -260,7 +260,7 @@ export default function AdminStockPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading stock items...</p>
         </div>
       </div>
@@ -332,24 +332,24 @@ export default function AdminStockPage() {
         {/* Stock Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">Total Items</p>
-            <p className="text-2xl font-bold text-blue-900">{filteredItems.length}</p>
+            <p className="text-sm text-teal-700 font-medium">Total Items</p>
+            <p className="text-2xl font-bold text-teal-900">{filteredItems.length}</p>
           </div>
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">Out of Stock</p>
-            <p className="text-2xl font-bold text-blue-900">
+            <p className="text-sm text-teal-700 font-medium">Out of Stock</p>
+            <p className="text-2xl font-bold text-teal-900">
               {filteredItems.filter(i => i.quantity === 0).length}
             </p>
           </div>
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">Low Stock</p>
-            <p className="text-2xl font-bold text-blue-900">
+            <p className="text-sm text-teal-700 font-medium">Low Stock</p>
+            <p className="text-2xl font-bold text-teal-900">
               {filteredItems.filter(i => i.quantity > 0 && i.quantity < i.min_quantity).length}
             </p>
           </div>
           <div className="stat-card">
-            <p className="text-sm text-blue-700 font-medium">In Stock</p>
-            <p className="text-2xl font-bold text-blue-900">
+            <p className="text-sm text-teal-700 font-medium">In Stock</p>
+            <p className="text-2xl font-bold text-teal-900">
               {filteredItems.filter(i => i.quantity >= i.min_quantity).length}
             </p>
           </div>
@@ -395,7 +395,7 @@ export default function AdminStockPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-teal-100 text-teal-800">
                           {item.category}
                         </span>
                       </td>
@@ -423,7 +423,7 @@ export default function AdminStockPage() {
                         </button>
                         <button
                           onClick={() => openEditModal(item)}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
+                          className="text-teal-600 hover:text-teal-800 font-medium"
                         >
                           Edit
                         </button>
@@ -693,9 +693,9 @@ export default function AdminStockPage() {
         <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-xl font-bold text-gray-800 mb-4">Stock Transaction</h3>
-            <div className="mb-4 p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm font-medium text-blue-900">{selectedItem.name}</p>
-              <p className="text-xs text-blue-600">Current Stock: {selectedItem.quantity} {selectedItem.unit}</p>
+            <div className="mb-4 p-4 bg-emerald-50 rounded-lg">
+              <p className="text-sm font-medium text-teal-900">{selectedItem.name}</p>
+              <p className="text-xs text-teal-600">Current Stock: {selectedItem.quantity} {selectedItem.unit}</p>
             </div>
             <div className="space-y-4">
               <div>
@@ -757,14 +757,14 @@ export default function AdminStockPage() {
         </div>
       )}
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Stock Management</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Stock Management</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• Add and manage all types of stock items</li>
               <li>• Track stock levels and get low stock alerts</li>
               <li>• Record stock in/out transactions</li>
@@ -776,3 +776,4 @@ export default function AdminStockPage() {
     </div>
   )
 }
+

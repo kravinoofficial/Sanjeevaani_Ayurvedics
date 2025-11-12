@@ -58,7 +58,7 @@ export default function DailyOPsPage() {
 
   const getStatusBadge = (status: string) => {
     const badges: Record<string, string> = {
-      waiting: 'bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold',
+      waiting: 'bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs font-semibold',
       completed: 'bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold',
       cancelled: 'bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold'
     }
@@ -108,20 +108,20 @@ export default function DailyOPsPage() {
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           <div className="stat-card">
-            <div className="text-blue-700 text-sm font-semibold mb-1">Total OPs</div>
-            <div className="text-3xl font-bold text-blue-900">{stats.total}</div>
+            <div className="text-teal-700 text-sm font-semibold mb-1">Total OPs</div>
+            <div className="text-3xl font-bold text-teal-900">{stats.total}</div>
           </div>
           <div className="stat-card">
-            <div className="text-blue-700 text-sm font-semibold mb-1">Waiting</div>
-            <div className="text-3xl font-bold text-blue-900">{stats.waiting}</div>
+            <div className="text-teal-700 text-sm font-semibold mb-1">Waiting</div>
+            <div className="text-3xl font-bold text-teal-900">{stats.waiting}</div>
           </div>
           <div className="stat-card">
-            <div className="text-blue-700 text-sm font-semibold mb-1">Completed</div>
-            <div className="text-3xl font-bold text-blue-900">{stats.completed}</div>
+            <div className="text-teal-700 text-sm font-semibold mb-1">Completed</div>
+            <div className="text-3xl font-bold text-teal-900">{stats.completed}</div>
           </div>
           <div className="stat-card">
-            <div className="text-blue-700 text-sm font-semibold mb-1">Cancelled</div>
-            <div className="text-3xl font-bold text-blue-900">{stats.cancelled}</div>
+            <div className="text-teal-700 text-sm font-semibold mb-1">Cancelled</div>
+            <div className="text-3xl font-bold text-teal-900">{stats.cancelled}</div>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function DailyOPsPage() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
             <p className="mt-4 text-gray-600">Loading OPs...</p>
           </div>
         ) : ops.length === 0 ? (
@@ -168,7 +168,7 @@ export default function DailyOPsPage() {
                 {ops.map((op, index) => (
                   <tr key={op.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-bold text-blue-600">OP{String(index + 1).padStart(2, '0')}</div>
+                      <div className="text-sm font-bold text-teal-600">OP{String(index + 1).padStart(2, '0')}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500">
                       {formatTime(op.created_at)}
@@ -203,3 +203,4 @@ export default function DailyOPsPage() {
     </div>
   )
 }
+

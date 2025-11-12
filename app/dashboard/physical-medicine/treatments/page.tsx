@@ -63,7 +63,7 @@ export default function PhysicalMedicineTreatmentsPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading treatments...</p>
         </div>
       </div>
@@ -135,7 +135,7 @@ export default function PhysicalMedicineTreatmentsPage() {
                   return (
                     <tr key={op.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-sm font-bold text-blue-600">{getOPNumber(op)}</span>
+                        <span className="text-sm font-bold text-teal-600">{getOPNumber(op)}</span>
                       </td>
                       <td className="px-6 py-4">
                         <div>
@@ -158,7 +158,7 @@ export default function PhysicalMedicineTreatmentsPage() {
                             {pendingCount} Pending
                           </span>
                         ) : (
-                          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-800">
                             Completed
                           </span>
                         )}
@@ -180,14 +180,14 @@ export default function PhysicalMedicineTreatmentsPage() {
         )}
       </div>
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Treatment Information</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Treatment Information</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• Click "View Details" to see full treatment details</li>
               <li>• Add notes and mark treatments as served or cancelled</li>
               <li>• Filter by date to view historical treatments</li>
@@ -198,3 +198,4 @@ export default function PhysicalMedicineTreatmentsPage() {
     </div>
   )
 }
+

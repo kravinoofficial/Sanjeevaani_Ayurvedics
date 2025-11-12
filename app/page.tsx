@@ -54,7 +54,7 @@ export default function LandingPage() {
           <div className="max-w-4xl">
             {/* Logo - Much Larger */}
             <div className="mb-10">
-              <img src="/logo1.png" alt="Sanjeevani Ayurvedica" className="h-32 sm:h-40 md:h-48 lg:h-56 w-auto" />
+              <img src="/logo1.png" alt="Sanjeevani Ayurvedics" className="h-32 sm:h-40 md:h-48 lg:h-56 w-auto" />
             </div>
             
             {/* Ayurvedic Tagline */}
@@ -237,9 +237,9 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <img src="/logo2.png" alt="Sanjeevani Ayurvedica" className="w-10 h-10 rounded-lg" />
+              <img src="/logo2.png" alt="Sanjeevani Ayurvedics" className="w-10 h-10 rounded-lg" />
               <div>
-                <p className="font-bold text-gray-800">Sanjeevani Ayurvedica</p>
+                <p className="font-bold text-gray-800">Sanjeevani Ayurvedics</p>
                 <p className="text-xs text-gray-600">Authentic Ayurveda • Personalized Treatments</p>
               </div>
             </div>
@@ -249,7 +249,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="text-center mt-4 pt-4 border-t border-gray-200">
-            <p className="text-xs text-gray-500">© 2024 Sanjeevani Ayurvedica. All rights reserved.</p>
+            <p className="text-xs text-gray-500">© 2024 Sanjeevani Ayurvedics. All rights reserved.</p>
           </div>
         </div>
       </footer>

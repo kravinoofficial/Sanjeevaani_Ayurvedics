@@ -304,7 +304,7 @@ export default function PrescriptionDetailPage({ params }: { params: { id: strin
         {/* Header with Letterhead */}
         <div className="border-b-2 border-gray-800 pb-6 mb-6">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-blue-900 mb-2" style={{ fontFamily: 'Georgia, serif' }}>Sanjeevani Ayurvedica 🌿</h1>
+            <h1 className="text-4xl font-bold text-blue-900 mb-2" style={{ fontFamily: 'Georgia, serif' }}>Sanjeevani Ayurvedics 🌿</h1>
             <p className="text-gray-700 text-sm">Authentic Ayurveda • Personalized Treatments</p>
             <p className="text-gray-600 text-xs mt-1">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
             <p className="text-gray-600 text-xs">✨ Restore Balance. Revive Health</p>

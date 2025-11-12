@@ -106,7 +106,7 @@ export default function PharmacistMedicinesPage() {
     return (
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
           <p className="mt-4 text-gray-600">Loading medicines...</p>
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function PharmacistMedicinesPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {medicine.unit || '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-blue-600">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-teal-600">
                       ₹{medicine.price ? Number(medicine.price).toFixed(2) : '0.00'}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
@@ -186,7 +186,7 @@ export default function PharmacistMedicinesPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={() => openEditModal(medicine)}
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        className="text-teal-600 hover:text-teal-800 text-sm font-medium"
                       >
                         Edit
                       </button>
@@ -266,14 +266,14 @@ export default function PharmacistMedicinesPage() {
         </div>
       )}
 
-      <div className="card bg-blue-50 border border-blue-200">
+      <div className="card bg-emerald-50 border border-emerald-200">
         <div className="flex items-start">
-          <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-6 h-6 text-teal-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h4 className="font-semibold text-blue-900 mb-1">Medicine Management</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <h4 className="font-semibold text-teal-900 mb-1">Medicine Management</h4>
+            <ul className="text-sm text-teal-800 space-y-1">
               <li>• Add new medicines to the system</li>
               <li>• Edit medicine details and prices</li>
               <li>• View all available medicines with prices</li>
@@ -352,3 +352,4 @@ export default function PharmacistMedicinesPage() {
     </div>
   )
 }
+
