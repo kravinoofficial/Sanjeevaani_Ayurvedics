@@ -117,10 +117,8 @@ export default function DashboardLayout({
         {/* Logo */}
         <div className="p-6 border-b border-blue-200">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-xl">H</span>
-            </div>
-            <span className="ml-3 text-lg font-bold text-blue-900">Hospital MS</span>
+            <img src="/logo2.png" alt="Sanjeevani Ayurvedica" className="w-10 h-10 rounded-lg shadow-md" />
+            <span className="ml-3 text-lg font-bold text-blue-900">Sanjeevani Ayurvedica</span>
           </div>
         </div>
 
@@ -188,10 +186,8 @@ export default function DashboardLayout({
           <aside className="w-64 bg-blue-50/95 backdrop-blur-md border-r border-blue-100 h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
             <div className="p-6 border-b border-blue-200">
               <div className="flex items-center">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
-                  <span className="text-white font-bold text-xl">H</span>
-                </div>
-                <span className="ml-3 text-lg font-bold text-blue-900">Hospital MS</span>
+                <img src="/logo2.png" alt="Sanjeevani Ayurvedica" className="w-10 h-10 rounded-lg shadow-md" />
+                <span className="ml-3 text-lg font-bold text-blue-900">Sanjeevani Ayurvedica</span>
               </div>
             </div>
             <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">

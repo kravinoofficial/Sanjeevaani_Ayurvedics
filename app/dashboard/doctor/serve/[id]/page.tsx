@@ -253,8 +253,7 @@ export default function DoctorServePage({ params }: { params: { id: string } }) 
       const { error: updateError } = await (supabase as any)
         .from('op_registrations')
         .update({ 
-          status: 'completed', 
-          doctor_id: currentUser?.id || null,
+          status: 'completed',
           notes: doctorNotes || null,
         })
         .eq('id', params.id)
@@ -630,7 +629,7 @@ export default function DoctorServePage({ params }: { params: { id: string } }) 
                       <label className="block text-xs font-medium text-gray-700 mb-1">Dosage *</label>
                       <input
                         type="text"
-                        placeholder="e.g., 1 tablet"
+                        placeholder="e.g., 1-0-1"
                         value={mp.dosage}
                         onChange={(e) => {
                           const updated = [...medicinePrescriptions]

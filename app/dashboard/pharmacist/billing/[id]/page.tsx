@@ -224,10 +224,10 @@ export default function PharmacistGenerateBillPage({ params }: { params: { id: s
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8">
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-4xl font-bold mb-2">Hospital MS</h1>
-              <p className="text-blue-100">Medical Services & Healthcare</p>
-              <p className="text-blue-100 text-sm mt-2">📍 123 Medical Street, Healthcare City</p>
-              <p className="text-blue-100 text-sm">📞 +91 1234567890 | ✉️ info@hospitalms.com</p>
+              <h1 className="text-4xl font-bold mb-2">Sanjeevani Ayurvedica 🌿</h1>
+              <p className="text-blue-100">Authentic Ayurveda • Personalized Treatments</p>
+              <p className="text-blue-100 text-sm mt-2">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
+              <p className="text-blue-100 text-sm">✨ Restore Balance. Revive Health</p>
             </div>
             <div className="text-right">
               <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
@@ -344,14 +344,14 @@ export default function PharmacistGenerateBillPage({ params }: { params: { id: s
               <div className="text-right">
                 <p className="text-sm font-semibold text-gray-700 mb-4">Authorized Signature</p>
                 <div className="border-t-2 border-gray-300 w-48 ml-auto mt-8"></div>
-                <p className="text-xs text-gray-600 mt-2">Hospital Management System</p>
+                <p className="text-xs text-gray-600 mt-2">Sanjeevani Ayurvedica</p>
               </div>
             </div>
           </div>
 
           <div className="mt-8 text-center bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-            <p className="text-blue-900 font-semibold">Thank you for choosing Hospital MS!</p>
-            <p className="text-sm text-blue-700 mt-1">We wish you good health and speedy recovery</p>
+            <p className="text-blue-900 font-semibold">Thank you for choosing Sanjeevani Ayurvedica! 🌿</p>
+            <p className="text-sm text-blue-700 mt-1">✨ Restore Balance. Revive Health</p>
           </div>
         </div>
       </div>

@@ -66,7 +66,7 @@ export default function BillingPage() {
   }
 
   const calculateTotal = (op: any) => {
-    let total = consultationFee
+    let total = 0
     
     // Add served medicines
     op.medicine_prescriptions?.forEach((med: any) => {
@@ -181,7 +181,7 @@ export default function BillingPage() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm">
-                          <div className="text-gray-600">Consultation + {servedMeds} Medicine(s) + {servedTreatments} Treatment(s)</div>
+                          <div className="text-gray-600">{servedMeds} Medicine(s) + {servedTreatments} Treatment(s)</div>
                         </div>
                       </td>
                       <td className="px-6 py-4">

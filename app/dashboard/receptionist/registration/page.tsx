@@ -20,6 +20,14 @@ export default function ReceptionistRegistrationPage() {
   const [paymentMethod, setPaymentMethod] = useState('cash')
   const [showTicket, setShowTicket] = useState(false)
   const [ticketData, setTicketData] = useState<any>(null)
+  const [showAddPatient, setShowAddPatient] = useState(false)
+  const [newPatient, setNewPatient] = useState({
+    full_name: '',
+    age: '',
+    gender: '',
+    phone: '',
+    address: ''
+  })
 
   useEffect(() => {
     loadPatients()
@@ -51,6 +59,67 @@ export default function ReceptionistRegistrationPage() {
   const loadPatients = async () => {
     const { data } = await supabase.from('patients').select('*').order('full_name')
     setPatients(data || [])
+  }
+
+  const handleAddPatient = async () => {
+    if (!newPatient.full_name.trim()) {
+      alert('Please enter patient name')
+      return
+    }
+    if (!newPatient.age) {
+      alert('Please enter patient age')
+      return
+    }
+    if (!newPatient.gender) {
+      alert('Please select patient gender')
+      return
+    }
+    if (!newPatient.phone.trim()) {
+      alert('Please enter patient phone number')
+      return
+    }
+    if (!newPatient.address.trim()) {
+      alert('Please enter patient address')
+      return
+    }
+
+    try {
+      // Generate patient ID
+      const { count } = await supabase
+        .from('patients')
+        .select('*', { count: 'exact', head: true })
+      
+      const patientId = `P${String((count || 0) + 1).padStart(3, '0')}`
+
+      const { data, error } = await (supabase as any)
+        .from('patients')
+        .insert({
+          patient_id: patientId,
+          full_name: newPatient.full_name,
+          age: parseInt(newPatient.age),
+          gender: newPatient.gender,
+          phone: newPatient.phone,
+          address: newPatient.address,
+          created_by: currentUser?.id || null
+        })
+        .select()
+        .single()
+
+      if (error) throw error
+
+      alert('Patient added successfully!')
+      setShowAddPatient(false)
+      setNewPatient({ full_name: '', age: '', gender: '', phone: '', address: '' })
+      loadPatients()
+      
+      // Auto-select the new patient
+      if (data) {
+        setSelectedPatient(data.id)
+        setPatientSearch('')
+      }
+    } catch (error: any) {
+      alert('Error adding patient: ' + error.message)
+    }
   }
 
   const loadDoctors = async () => {
@@ -437,9 +506,9 @@ export default function ReceptionistRegistrationPage() {
         <body>
           <div class="ticket-container">
             <div class="header">
-              <h1>Hospital MS</h1>
+              <h1>Sanjeevani Ayurvedica</h1>
               <p>Outpatient Department</p>
-              <p style="font-size: 11px; margin-top: 4px;">📍 123 Medical Street, Healthcare City | 📞 +91 1234567890</p>
+              <p style="font-size: 11px; margin-top: 4px;">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
             </div>
             
             <div class="op-number">
@@ -502,7 +571,7 @@ export default function ReceptionistRegistrationPage() {
             
             <div class="footer">
               <p>Please keep this ticket for reference. Show it to the doctor during consultation.</p>
-              <p style="margin-top: 8px;">Thank you for choosing Hospital MS</p>
+              <p style="margin-top: 8px;">Thank you for choosing Sanjeevani Ayurvedica 🌿</p>
             </div>
           </div>
         </body>
@@ -633,9 +702,21 @@ export default function ReceptionistRegistrationPage() {
               </div>
 
               <div className="relative">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Search & Select Patient *
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Search & Select Patient *
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddPatient(true)}
+                    className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add New Patient
+                  </button>
+                </div>
                 <div className="relative">
                   <input
                     type="text"
@@ -842,15 +923,15 @@ export default function ReceptionistRegistrationPage() {
       {/* OP Ticket Modal */}
       {showTicket && ticketData && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" id="ticket-modal">
-          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full">
-            {/* Ticket Content */}
-            <div className="p-8">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+            {/* Ticket Content - Scrollable */}
+            <div className="p-8 overflow-y-auto flex-1">
               <div className="border-4 border-blue-600 rounded-lg p-6">
                 {/* Header */}
                 <div className="text-center border-b-2 border-blue-600 pb-4 mb-6">
-                  <h1 className="text-3xl font-bold text-blue-900">Hospital MS</h1>
+                  <h1 className="text-3xl font-bold text-blue-900">Sanjeevani Ayurvedica 🌿</h1>
                   <p className="text-gray-600 text-sm mt-1">Outpatient Department</p>
-                  <p className="text-xs text-gray-500 mt-1">📍 123 Medical Street, Healthcare City | 📞 +91 1234567890</p>
+                  <p className="text-xs text-gray-500 mt-1">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
                 </div>
 
                 {/* OP Number - Large Display */}
@@ -938,7 +1019,7 @@ export default function ReceptionistRegistrationPage() {
                     Please keep this ticket for reference. Show it to the doctor during consultation.
                   </p>
                   <p className="text-xs text-gray-500 mt-2">
-                    Thank you for choosing Hospital MS
+                    Thank you for choosing Sanjeevani Ayurvedica 🌿
                   </p>
                 </div>
               </div>
@@ -970,6 +1051,99 @@ export default function ReceptionistRegistrationPage() {
               >
                 Close
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Patient Modal */}
+      {showAddPatient && (
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowAddPatient(false)
+              setNewPatient({ full_name: '', age: '', gender: '', phone: '', address: '' })
+            }
+          }}
+        >
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Add New Patient</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                <input
+                  type="text"
+                  value={newPatient.full_name}
+                  onChange={(e) => setNewPatient({ ...newPatient, full_name: e.target.value })}
+                  className="input-field"
+                  placeholder="Enter patient name"
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Age *</label>
+                  <input
+                    type="number"
+                    value={newPatient.age}
+                    onChange={(e) => setNewPatient({ ...newPatient, age: e.target.value })}
+                    className="input-field"
+                    placeholder="Age"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Gender *</label>
+                  <select
+                    value={newPatient.gender}
+                    onChange={(e) => setNewPatient({ ...newPatient, gender: e.target.value })}
+                    className="input-field"
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Phone *</label>
+                <input
+                  type="tel"
+                  value={newPatient.phone}
+                  onChange={(e) => setNewPatient({ ...newPatient, phone: e.target.value })}
+                  className="input-field"
+                  placeholder="Phone number"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Address *</label>
+                <textarea
+                  value={newPatient.address}
+                  onChange={(e) => setNewPatient({ ...newPatient, address: e.target.value })}
+                  className="input-field"
+                  rows={2}
+                  placeholder="Address"
+                  required
+                />
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button onClick={handleAddPatient} className="btn-primary flex-1">
+                  Add Patient
+                </button>
+                <button 
+                  onClick={() => {
+                    setShowAddPatient(false)
+                    setNewPatient({ full_name: '', age: '', gender: '', phone: '', address: '' })
+                  }} 
+                  className="btn-secondary flex-1"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
