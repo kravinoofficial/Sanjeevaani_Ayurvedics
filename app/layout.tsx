@@ -9,8 +9,12 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Hospital Management System',
-  description: 'Comprehensive hospital management with role-based access',
+  title: 'Sanjeevani Ayurvedics - Hospital Management',
+  description: 'Ayurvedic Hospital Management System - Ancient Wisdom, Modern Care',
+  icons: {
+    icon: '/logo1.png',
+    apple: '/logo1.png',
+  },
 }
 
 export default function RootLayout({

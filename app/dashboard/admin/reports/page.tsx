@@ -463,7 +463,7 @@ export default function AdminReportsPage() {
                       </div>
                       <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm text-gray-600">Pending</p>
-                        <p className="text-3xl font-bold text-yellow-600">{reportData.filter(op => op.status === 'pending').length}</p>
+                        <p className="text-3xl font-bold text-yellow-600">{reportData.filter(op => op.status === 'waiting').length}</p>
                       </div>
                     </div>
                   </div>
@@ -496,7 +496,7 @@ export default function AdminReportsPage() {
                             <td className="px-4 py-3">
                               <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                                 op.status === 'completed' ? 'bg-green-100 text-green-800' :
-                                op.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                op.status === 'waiting' ? 'bg-yellow-100 text-yellow-800' :
                                 'bg-gray-100 text-gray-800'
                               }`}>
                                 {op.status}
