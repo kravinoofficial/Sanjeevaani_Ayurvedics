@@ -18,16 +18,18 @@ export default function PharmacistMedicinesPage() {
 
   const loadMedicines = async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from('medicines')
-      .select('*')
-      .order('name')
+    try {
+      const response = await fetch('/api/medicines')
+      const result = await response.json()
 
-    if (error) {
+      if (response.ok && result.data) {
+        setMedicines(result.data)
+      } else {
+        console.error('Error loading medicines:', result.error)
+      }
+    } catch (error) {
       console.error('Error loading medicines:', error)
     }
-
-    setMedicines(data || [])
     setLoading(false)
   }
 
@@ -38,16 +40,19 @@ export default function PharmacistMedicinesPage() {
     }
 
     try {
-      const { error } = await (supabase as any)
-        .from('medicines')
-        .insert({
+      const response = await fetch('/api/medicines', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: newMedicine.name,
           unit: newMedicine.unit || null,
           price: newMedicine.price || null,
           description: newMedicine.description || null,
-        })
+        }),
+      })
 
-      if (error) throw error
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error)
 
       alert('Medicine added successfully!')
       setShowAddModal(false)
@@ -65,17 +70,19 @@ export default function PharmacistMedicinesPage() {
     }
 
     try {
-      const { error } = await (supabase as any)
-        .from('medicines')
-        .update({
+      const response = await fetch(`/api/medicines/${editingMedicine.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: editingMedicine.name,
           unit: editingMedicine.unit || null,
           price: editingMedicine.price || null,
           description: editingMedicine.description || null,
-        })
-        .eq('id', editingMedicine.id)
+        }),
+      })
 
-      if (error) throw error
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error)
 
       alert('Medicine updated successfully!')
       setShowEditModal(false)

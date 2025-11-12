@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 
 export default function DoctorServePage({ params }: { params: { id: string } }) {
   const [registration, setRegistration] = useState<any>(null)
@@ -90,8 +90,9 @@ export default function DoctorServePage({ params }: { params: { id: string } }) 
       
       setRegistration(reg)
 
-      const { data: meds } = await supabase.from('medicines').select('*').order('name')
-      setMedicines(meds || [])
+      const medsResponse = await fetch('/api/medicines')
+      const medsResult = await medsResponse.json()
+      setMedicines(medsResult.data || [])
       
       const { data: treatments } = await supabase.from('physical_treatments').select('*').order('name')
       setAvailableTreatments(treatments || [])
@@ -119,18 +120,19 @@ export default function DoctorServePage({ params }: { params: { id: string } }) 
     }
 
     try {
-      const { error } = await (supabase as any)
-        .from('medicines')
-        .insert({
+      const response = await fetch('/api/medicines', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: newMedicine.name,
           unit: newMedicine.unit || null,
           price: newMedicine.price || null,
           description: newMedicine.description || null,
-        })
-        .select()
-        .single()
+        }),
+      })
 
-      if (error) throw error
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error)
 
       alert('Medicine added successfully!')
       setShowAddMedicine(false)

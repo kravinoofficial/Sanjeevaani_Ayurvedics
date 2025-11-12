@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 import { supabase } from '@/lib/supabase'
 
 export default function DashboardPage() {

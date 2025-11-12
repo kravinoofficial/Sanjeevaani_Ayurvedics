@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 
 export default function TreatmentDetailsPage({ params }: { params: { id: string } }) {
   const [registration, setRegistration] = useState<any>(null)

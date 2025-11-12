@@ -40,7 +40,7 @@ export default function PhysicalMedicineTreatmentsPage() {
     }
 
     // Filter to only show OPs that have physical treatment prescriptions
-    const opsWithTreatments = (data || []).filter(op => 
+    const opsWithTreatments = (data || []).filter((op: any) => 
       op.physical_treatment_prescriptions && op.physical_treatment_prescriptions.length > 0
     )
 

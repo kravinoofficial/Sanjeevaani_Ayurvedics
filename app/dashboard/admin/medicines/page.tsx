@@ -34,9 +34,16 @@ export default function AdminMedicinesPage() {
   }, [searchQuery, medicines])
 
   const loadMedicines = async () => {
-    const { data } = await supabase.from('medicines').select('*').order('name')
-    setMedicines(data || [])
-    setFilteredMedicines(data || [])
+    try {
+      const response = await fetch('/api/medicines')
+      const result = await response.json()
+      if (response.ok && result.data) {
+        setMedicines(result.data)
+        setFilteredMedicines(result.data)
+      }
+    } catch (error) {
+      console.error('Error loading medicines:', error)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,29 +51,34 @@ export default function AdminMedicinesPage() {
 
     try {
       if (editingId) {
-        const { error } = await (supabase as any)
-          .from('medicines')
-          .update({
+        const response = await fetch(`/api/medicines/${editingId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             name: formData.name,
             description: formData.description || null,
             unit: formData.unit || null,
             price: formData.price || null,
-          })
-          .eq('id', editingId)
+          }),
+        })
         
-        if (error) throw error
+        const result = await response.json()
+        if (!response.ok) throw new Error(result.error)
         alert('Medicine updated successfully!')
       } else {
-        const { error } = await (supabase as any)
-          .from('medicines')
-          .insert({
+        const response = await fetch('/api/medicines', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             name: formData.name,
             description: formData.description || null,
             unit: formData.unit || null,
             price: formData.price || null,
-          })
+          }),
+        })
         
-        if (error) throw error
+        const result = await response.json()
+        if (!response.ok) throw new Error(result.error)
         alert('Medicine added successfully!')
       }
 

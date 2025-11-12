@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser, signOut } from '@/lib/auth'
+import { api } from '@/lib/api-client'
 import { UserRole } from '@/lib/database.types'
 
 export default function DashboardLayout({
@@ -22,17 +22,17 @@ export default function DashboardLayout({
   }, [])
 
   const checkUser = async () => {
-    const profile = await getCurrentUser()
-    if (!profile) {
+    const { data } = await api.getCurrentUser()
+    if (!data || !(data as any).user) {
       router.push('/')
       return
     }
-    setUser(profile)
+    setUser((data as any).user)
     setLoading(false)
   }
 
   const handleSignOut = async () => {
-    await signOut()
+    await api.logout()
     router.push('/')
     router.refresh()
   }

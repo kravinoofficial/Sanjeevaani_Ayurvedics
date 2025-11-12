@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 
 export default function GenerateBillPage({ params }: { params: { id: string } }) {
   const [opData, setOpData] = useState<any>(null)
@@ -54,14 +54,18 @@ export default function GenerateBillPage({ params }: { params: { id: string } })
     }
 
     // Load consultation fee
-    const { data: feeData } = await (supabase as any)
-      .from('charges')
-      .select('amount')
-      .eq('charge_type', 'consultation')
-      .single()
+    try {
+      const response = await fetch('/api/charges')
+      const result = await response.json()
 
-    if (feeData) {
-      setConsultationFee(Number(feeData.amount))
+      if (response.ok && result.data) {
+        const consultationCharge = result.data.find((c: any) => c.charge_type === 'consultation')
+        if (consultationCharge) {
+          setConsultationFee(Number(consultationCharge.amount))
+        }
+      }
+    } catch (error) {
+      console.error('Error loading consultation fee:', error)
     }
 
     setLoading(false)

@@ -1,45 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { verifyCredentials, createSessionToken } from '@/lib/auth-server'
+import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json()
+    const { email, password, role } = await request.json()
 
-    // Get user from database
-    const { data: user, error: userError } = await (supabase as any)
-      .from('users')
-      .select('*')
-      .eq('email', email)
-      .eq('is_active', true)
-      .single()
+    // Verify credentials
+    const { user, error } = await verifyCredentials(email, password, role)
 
-    if (userError || !user) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      )
+    if (error || !user) {
+      return NextResponse.json({ error: error || 'Authentication failed' }, { status: 401 })
     }
 
-    // Verify password using PostgreSQL function
-    const { data: isValid, error: verifyError } = await (supabase as any)
-      .rpc('verify_password', {
-        password: password,
-        password_hash: user.password_hash
-      })
+    // Create session token
+    const token = createSessionToken(user)
 
-    if (verifyError || !isValid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      )
-    }
-
-    // Remove password_hash from response
-    const { password_hash, ...userWithoutPassword } = user
+    // Set secure HTTP-only cookie
+    const cookieStore = cookies()
+    cookieStore.set('hospital_session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 8, // 8 hours
+      path: '/',
+    })
 
     return NextResponse.json({
-      user: userWithoutPassword,
-      message: 'Login successful'
+      user,
+      message: 'Login successful',
     })
   } catch (error: any) {
     return NextResponse.json(

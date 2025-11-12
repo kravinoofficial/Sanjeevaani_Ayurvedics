@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
 
 export default function ConsultationFeePage() {
   const [consultationFee, setConsultationFee] = useState<any>(null)
@@ -18,14 +17,19 @@ export default function ConsultationFeePage() {
 
   const loadConsultationFee = async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from('charges')
-      .select('*')
-      .eq('charge_type', 'consultation')
-      .single()
+    try {
+      const response = await fetch('/api/charges')
+      const result = await response.json()
 
-    if (!error && data) {
-      setConsultationFee(data)
+      if (response.ok && result.data) {
+        // Find consultation fee
+        const consultationCharge = result.data.find((c: any) => c.charge_type === 'consultation')
+        if (consultationCharge) {
+          setConsultationFee(consultationCharge)
+        }
+      }
+    } catch (error) {
+      console.error('Error loading consultation fee:', error)
     }
     setLoading(false)
   }
@@ -36,30 +40,42 @@ export default function ConsultationFeePage() {
     try {
       if (consultationFee) {
         // Update existing
-        const { error } = await (supabase as any)
-          .from('charges')
-          .update({
+        const response = await fetch(`/api/charges/${consultationFee.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             amount: Number(formData.amount),
             description: formData.description,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', consultationFee.id)
+          }),
+        })
 
-        if (error) throw error
+        const result = await response.json()
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to update')
+        }
+
         alert('Consultation fee updated successfully!')
       } else {
         // Create new
-        const { error } = await (supabase as any)
-          .from('charges')
-          .insert({
+        const response = await fetch('/api/charges', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             charge_type: 'consultation',
             charge_name: 'Consultation Fee',
             amount: Number(formData.amount),
             description: formData.description,
-            is_active: true
-          })
+            is_active: true,
+          }),
+        })
 
-        if (error) throw error
+        const result = await response.json()
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to create')
+        }
+
         alert('Consultation fee set successfully!')
       }
 

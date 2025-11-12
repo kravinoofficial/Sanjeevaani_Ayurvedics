@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 
 export default function DoctorServedPatientsPage() {
   const [servedPatients, setServedPatients] = useState<any[]>([])

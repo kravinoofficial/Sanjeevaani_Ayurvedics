@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signIn, getCurrentUser } from '@/lib/auth'
+import { api } from '@/lib/api-client'
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
@@ -11,15 +11,8 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    const user = await getCurrentUser()
-    if (user) {
-      router.push('/dashboard')
-    }
+  const getRoleRedirect = (role: string) => {
+    return '/dashboard'
   }
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -27,19 +20,36 @@ export default function AdminLoginPage() {
     setError('')
     setLoading(true)
 
-    const { data, error } = await signIn(email, password, 'admin')
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, role: 'admin' }),
+      })
 
-    if (error) {
-      setError(error.message)
+      const data = await response.json()
+
+      if (!response.ok || data.error) {
+        setError(data.error || 'Login failed')
+        setLoading(false)
+        return
+      }
+
+      // Login successful - redirect based on role
+      if (data.user) {
+        // Redirect to dashboard
+        setTimeout(() => {
+          window.location.href = '/dashboard'
+        }, 100)
+      } else {
+        console.error('No user in response:', data)
+        setError('Login failed. Please try again.')
+        setLoading(false)
+      }
+    } catch (error) {
+      setError('Network error. Please try again.')
       setLoading(false)
-      return
     }
-
-    if (data?.user) {
-      router.push('/dashboard')
-      router.refresh()
-    }
-    setLoading(false)
   }
 
   return (

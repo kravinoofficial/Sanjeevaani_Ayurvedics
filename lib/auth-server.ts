@@ -95,16 +95,19 @@ export async function verifyCredentials(
     }
 
     // Check role if required
-    if (requiredRole && user.role !== requiredRole && requiredRole !== 'staff') {
-      return {
-        user: null,
-        error: `Access denied. This login is for ${requiredRole} only.`,
+    if (requiredRole && requiredRole !== 'staff') {
+      // For non-staff logins, require exact role match
+      if (user.role !== requiredRole) {
+        return {
+          user: null,
+          error: `Access denied. This login is for ${requiredRole} only.`,
+        }
       }
     }
 
-    // For staff role, allow if user has any medical role
+    // For staff role login, allow if user has staff role OR any medical role
     if (requiredRole === 'staff') {
-      const allowedRoles = ['receptionist', 'doctor', 'pharmacist', 'physical_medicine']
+      const allowedRoles = ['staff', 'receptionist', 'doctor', 'pharmacist', 'physical_medicine']
       if (!allowedRoles.includes(user.role)) {
         return {
           user: null,

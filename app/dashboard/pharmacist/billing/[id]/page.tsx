@@ -49,14 +49,18 @@ export default function PharmacistGenerateBillPage({ params }: { params: { id: s
     }
 
     // Load consultation fee
-    const { data: feeData } = await (supabase as any)
-      .from('charges')
-      .select('amount')
-      .eq('charge_type', 'consultation')
-      .single()
+    try {
+      const response = await fetch('/api/charges')
+      const result = await response.json()
 
-    if (feeData) {
-      setConsultationFee(Number(feeData.amount))
+      if (response.ok && result.data) {
+        const consultationCharge = result.data.find((c: any) => c.charge_type === 'consultation')
+        if (consultationCharge) {
+          setConsultationFee(Number(consultationCharge.amount))
+        }
+      }
+    } catch (error) {
+      console.error('Error loading consultation fee:', error)
     }
 
     setLoading(false)

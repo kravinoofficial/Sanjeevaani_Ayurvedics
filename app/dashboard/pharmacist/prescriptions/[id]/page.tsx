@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 
 export default function PrescriptionDetailPage({ params }: { params: { id: string } }) {
   const [opData, setOpData] = useState<any>(null)
@@ -38,8 +38,15 @@ export default function PrescriptionDetailPage({ params }: { params: { id: strin
   }
 
   const loadMedicines = async () => {
-    const { data } = await supabase.from('medicines').select('*').order('name')
-    setMedicines(data || [])
+    try {
+      const response = await fetch('/api/medicines')
+      const result = await response.json()
+      if (response.ok && result.data) {
+        setMedicines(result.data)
+      }
+    } catch (error) {
+      console.error('Error loading medicines:', error)
+    }
   }
 
   const loadOPData = async () => {
@@ -202,7 +209,7 @@ export default function PrescriptionDetailPage({ params }: { params: { id: strin
         .eq('registration_date', opData.registration_date)
         .order('created_at', { ascending: true })
       
-      const index = (data || []).findIndex(op => op.id === opData.id)
+      const index = (data || []).findIndex((op: any) => op.id === opData.id)
       setOpNumber(`OP${String(index + 1).padStart(2, '0')}`)
     }
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-client'
 
 export default function ReceptionistRegistrationPage() {
   const [patients, setPatients] = useState<any[]>([])
@@ -44,15 +44,18 @@ export default function ReceptionistRegistrationPage() {
   }
 
   const loadConsultationFee = async () => {
-    const { data } = await (supabase as any)
-      .from('charges')
-      .select('amount')
-      .eq('charge_type', 'consultation')
-      .eq('is_active', true)
-      .single()
-    
-    if (data) {
-      setConsultationFee(Number(data.amount))
+    try {
+      const response = await fetch('/api/charges')
+      const result = await response.json()
+
+      if (response.ok && result.data) {
+        const consultationCharge = result.data.find((c: any) => c.charge_type === 'consultation')
+        if (consultationCharge) {
+          setConsultationFee(Number(consultationCharge.amount))
+        }
+      }
+    } catch (error) {
+      console.error('Error loading consultation fee:', error)
     }
   }
 
@@ -650,7 +653,7 @@ export default function ReceptionistRegistrationPage() {
       .eq('registration_date', today)
       .order('created_at', { ascending: true })
     
-    const index = (allOps || []).findIndex(op => op.id === registration.id)
+    const index = (allOps || []).findIndex((op: any) => op.id === registration.id)
     const opNumber = `OP${String(index + 1).padStart(2, '0')}`
 
     // Get bill information

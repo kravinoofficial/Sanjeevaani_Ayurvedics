@@ -1,26 +1,42 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getSessionFromRequest } from './lib/auth-server'
+
+export const config = {
+  matcher: ['/', '/dashboard/:path*', '/login/:path*'],
+  runtime: 'nodejs',
+}
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  // Check if user is authenticated (has session in cookie or localStorage)
-  // Since we're using client-side auth, we'll let the client handle redirects
-  // This middleware just ensures proper routing
+  // Public routes that don't require authentication
+  const publicRoutes = [
+    '/',
+    '/login/admin',
+    '/login/receptionist',
+    '/login/doctor',
+    '/login/pharmacist',
+    '/login/physical-medicine',
+    '/login/staff',
+  ]
 
-  // Protect dashboard routes - client will handle auth check
-  if (pathname.startsWith('/dashboard')) {
+  // Check if route is public
+  if (publicRoutes.includes(pathname)) {
     return NextResponse.next()
   }
 
-  // Allow access to login page
-  if (pathname === '/') {
+  // API routes are protected by their own auth checks
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next()
+  }
+
+  // Protect dashboard routes
+  if (pathname.startsWith('/dashboard')) {
+    // Let the dashboard pages handle their own auth checks
+    // Middleware auth is causing issues with cookie reading
     return NextResponse.next()
   }
 
   return NextResponse.next()
-}
-
-export const config = {
-  matcher: ['/', '/dashboard/:path*'],
 }

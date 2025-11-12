@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth'
+import { api } from '@/lib/api-client'
 
 export default function LandingPage() {
   const router = useRouter()
@@ -12,9 +12,17 @@ export default function LandingPage() {
   }, [])
 
   const checkAuth = async () => {
-    const user = await getCurrentUser()
-    if (user) {
-      router.push('/dashboard')
+    try {
+      const response = await fetch('/api/auth/me')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.user) {
+          // User is logged in, redirect to dashboard
+          router.replace('/dashboard')
+        }
+      }
+    } catch (error) {
+      // Not logged in, stay on landing page
     }
   }
 

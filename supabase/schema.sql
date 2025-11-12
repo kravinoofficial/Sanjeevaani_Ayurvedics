@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- User roles enum
-CREATE TYPE user_role AS ENUM ('admin', 'receptionist', 'doctor', 'pharmacist', 'physical_medicine');
+CREATE TYPE user_role AS ENUM ('admin', 'receptionist', 'doctor', 'pharmacist', 'physical_medicine', 'staff');
 
 -- Prescription status enum
 CREATE TYPE prescription_status AS ENUM ('pending', 'served', 'cancelled');

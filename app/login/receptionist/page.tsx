@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signIn, getCurrentUser } from '@/lib/auth'
+import { api } from '@/lib/api-client'
 
 export default function ReceptionistLoginPage() {
   const [email, setEmail] = useState('')
@@ -11,35 +11,25 @@ export default function ReceptionistLoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    const user = await getCurrentUser()
-    if (user) {
-      router.push('/dashboard')
-    }
-  }
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
     setLoading(true)
 
-    const { data, error } = await signIn(email, password, 'receptionist')
+    const { data, error: loginError } = await api.login(email, password, 'receptionist')
 
-    if (error) {
-      setError(error.message)
+    if (loginError) {
+      setError(loginError)
       setLoading(false)
       return
     }
 
-    if (data?.user) {
-      router.push('/dashboard')
-      router.refresh()
+    if (data) {
+      window.location.href = '/dashboard'
+    } else {
+      setError('Login failed')
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (
