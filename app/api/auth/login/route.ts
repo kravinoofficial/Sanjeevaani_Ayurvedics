@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const cookieStore = cookies()
     cookieStore.set('hospital_session', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: false, // Set to false for HTTP, true only if using HTTPS
       sameSite: 'lax',
       maxAge: 60 * 60 * 8, // 8 hours
       path: '/',
