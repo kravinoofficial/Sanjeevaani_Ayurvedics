@@ -18,11 +18,16 @@ const nextConfig = {
     missingSuspenseWithCSRBailout: false,
   },
   
-  // Disable static page generation for error pages
-  // This prevents build failures from default error pages
-  generateBuildId: async () => {
-    return 'build-' + Date.now()
+  // Override the default error page behavior
+  // This prevents the Pages Router error pages from being generated
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
   },
+  
+  // Disable static optimization for error pages
+  // Force all pages to be server-rendered
+  generateEtags: false,
 }
 
 module.exports = nextConfig

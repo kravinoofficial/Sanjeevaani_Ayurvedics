@@ -5,7 +5,8 @@
   "description": "Complete Hospital Management System with table-based authentication",
   "scripts": {
     "dev": "next dev",
-    "build": "next build || true",
+    "build": "node build.js",
+    "build:next": "next build",
     "start": "next start",
     "lint": "next lint"
   },
