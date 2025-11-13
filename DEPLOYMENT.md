@@ -1,415 +1,116 @@
-# Deployment Guide
-
-## 🚀 Deploying to Production
-
-This guide covers deploying your Hospital Management System to various platforms.
+# Deployment Guide for Coolify
 
 ## Prerequisites
+- Git repository (GitHub, GitLab, or Gitea)
+- Coolify instance running
+- Supabase service already deployed in Coolify
 
-- Git repository (GitHub, GitLab, or Bitbucket)
-- Supabase project set up
-- Environment variables ready
+## Step 1: Push Code to Git
 
-## Option 1: Vercel (Recommended)
-
-Vercel is the easiest and recommended platform for Next.js applications.
-
-### Steps:
-
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin your-repo-url
-   git push -u origin main
-   ```
-
-2. **Deploy to Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "New Project"
-   - Import your GitHub repository
-   - Configure project:
-     - Framework Preset: Next.js
-     - Root Directory: ./
-     - Build Command: `npm run build`
-     - Output Directory: .next
-
-3. **Add Environment Variables**
-   In Vercel dashboard, go to Settings > Environment Variables:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
-
-4. **Deploy**
-   - Click "Deploy"
-   - Wait for build to complete
-   - Your app will be live at `your-project.vercel.app`
-
-### Custom Domain (Optional)
-- Go to Settings > Domains
-- Add your custom domain
-- Follow DNS configuration instructions
-
-## Option 2: Netlify
-
-### Steps:
-
-1. **Push to Git** (same as Vercel)
-
-2. **Deploy to Netlify**
-   - Go to [netlify.com](https://netlify.com)
-   - Click "Add new site" > "Import an existing project"
-   - Connect to your Git provider
-   - Configure build settings:
-     - Build command: `npm run build`
-     - Publish directory: `.next`
-
-3. **Add Environment Variables**
-   - Go to Site settings > Environment variables
-   - Add your Supabase credentials
-
-4. **Deploy**
-
-## Option 3: AWS Amplify
-
-### Steps:
-
-1. **Push to Git** (same as above)
-
-2. **Deploy to AWS Amplify**
-   - Go to AWS Amplify Console
-   - Click "New app" > "Host web app"
-   - Connect your repository
-   - Configure build settings:
-     ```yaml
-     version: 1
-     frontend:
-       phases:
-         preBuild:
-           commands:
-             - npm install
-         build:
-           commands:
-             - npm run build
-       artifacts:
-         baseDirectory: .next
-         files:
-           - '**/*'
-       cache:
-         paths:
-           - node_modules/**/*
-     ```
-
-3. **Add Environment Variables**
-   - In app settings, add environment variables
-
-4. **Deploy**
-
-## Option 4: Railway
-
-### Steps:
-
-1. **Push to Git**
-
-2. **Deploy to Railway**
-   - Go to [railway.app](https://railway.app)
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Choose your repository
-
-3. **Configure**
-   - Railway auto-detects Next.js
-   - Add environment variables in Variables tab
-
-4. **Deploy**
-
-## Option 5: DigitalOcean App Platform
-
-### Steps:
-
-1. **Push to Git**
-
-2. **Deploy to DigitalOcean**
-   - Go to DigitalOcean App Platform
-   - Create new app
-   - Connect repository
-   - Configure:
-     - Build Command: `npm run build`
-     - Run Command: `npm start`
-
-3. **Add Environment Variables**
-
-4. **Deploy**
-
-## Option 6: Self-Hosted (VPS)
-
-For complete control, deploy to your own server.
-
-### Requirements:
-- Ubuntu 20.04+ or similar
-- Node.js 18+
-- Nginx
-- PM2 (process manager)
-
-### Steps:
-
-1. **Set up server**
-   ```bash
-   # Update system
-   sudo apt update && sudo apt upgrade -y
-
-   # Install Node.js
-   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-   sudo apt install -y nodejs
-
-   # Install PM2
-   sudo npm install -g pm2
-
-   # Install Nginx
-   sudo apt install -y nginx
-   ```
-
-2. **Clone and build**
-   ```bash
-   cd /var/www
-   git clone your-repo-url hospital-ms
-   cd hospital-ms
-   npm install
-   npm run build
-   ```
-
-3. **Configure environment**
-   ```bash
-   nano .env.local
-   # Add your environment variables
-   ```
-
-4. **Start with PM2**
-   ```bash
-   pm2 start npm --name "hospital-ms" -- start
-   pm2 save
-   pm2 startup
-   ```
-
-5. **Configure Nginx**
-   ```bash
-   sudo nano /etc/nginx/sites-available/hospital-ms
-   ```
-
-   Add:
-   ```nginx
-   server {
-       listen 80;
-       server_name your-domain.com;
-
-       location / {
-           proxy_pass http://localhost:3000;
-           proxy_http_version 1.1;
-           proxy_set_header Upgrade $http_upgrade;
-           proxy_set_header Connection 'upgrade';
-           proxy_set_header Host $host;
-           proxy_cache_bypass $http_upgrade;
-       }
-   }
-   ```
-
-   Enable site:
-   ```bash
-   sudo ln -s /etc/nginx/sites-available/hospital-ms /etc/nginx/sites-enabled/
-   sudo nginx -t
-   sudo systemctl restart nginx
-   ```
-
-6. **SSL with Let's Encrypt**
-   ```bash
-   sudo apt install certbot python3-certbot-nginx
-   sudo certbot --nginx -d your-domain.com
-   ```
-
-## Post-Deployment Checklist
-
-### Security
-- [ ] Enable HTTPS/SSL
-- [ ] Set up firewall rules
-- [ ] Configure CORS if needed
-- [ ] Enable Supabase RLS policies
-- [ ] Change default admin password
-- [ ] Set up 2FA in Supabase
-
-### Performance
-- [ ] Enable caching
-- [ ] Configure CDN (if using)
-- [ ] Optimize images
-- [ ] Enable compression
-- [ ] Monitor performance
-
-### Monitoring
-- [ ] Set up error tracking (Sentry)
-- [ ] Configure uptime monitoring
-- [ ] Set up analytics
-- [ ] Enable logging
-- [ ] Configure alerts
-
-### Backup
-- [ ] Set up database backups
-- [ ] Configure automated backups
-- [ ] Test restore process
-- [ ] Document backup procedures
-
-## Environment Variables
-
-Required environment variables for production:
-
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_production_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_production_supabase_anon_key
-
-# Optional
-NODE_ENV=production
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin YOUR_GIT_REPO_URL
+git push -u origin main
 ```
 
-## Database Migration
+## Step 2: Deploy to Coolify
 
-If moving from development to production:
+1. **Login to Coolify** at your Coolify URL
 
-1. **Export development data** (if needed)
-   ```sql
-   -- In Supabase SQL Editor
-   COPY patients TO '/tmp/patients.csv' CSV HEADER;
+2. **Create New Application**
+   - Click "+ New Resource"
+   - Select "Application"
+   - Choose "Public Repository" or connect your Git account
+
+3. **Configure Application**
+   - Repository URL: Your Git repository URL
+   - Branch: `main`
+   - Build Pack: `nixpacks` (auto-detected for Next.js)
+   - Port: `3000`
+
+4. **Set Environment Variables**
+   
+   In Coolify, go to your application → Environment Variables and add:
+
+   ```env
+   # Supabase Configuration (use internal Docker network URLs)
+   NEXT_PUBLIC_SUPABASE_URL=http://supabase-kong:8000
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mjk2Njg2MCwiZXhwIjo0OTE4NjQwNDYwLCJyb2xlIjoiYW5vbiJ9.obNvHeTjpCNnKVutRoWh3EeHVBGhpGWzBGaHLkfqj5A
+   
+   SUPABASE_URL=http://supabase-kong:8000
+   SUPABASE_SERVICE_ROLE_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mjk2Njg2MCwiZXhwIjo0OTE4NjQwNDYwLCJyb2xlIjoic2VydmljZV9yb2xlIn0.-zf-aLLkxwl1Sx-j3dfz5l7Ytts4W_V4segKiGNqdqE
+   
+   # JWT Secret
+   JWT_SECRET=f213e827093bc61d01a3856bf3a820f36def8ec4d35b33084f26602cca87f368
+   
+   # PostgreSQL (use internal Docker network)
+   DATABASE_URL=postgresql://postgres:JMHF7Ay8Ds8z5zU07hPkFKH4YPry50@supabase-db:5432/postgres
+   
+   # Node Environment
+   NODE_ENV=production
    ```
 
-2. **Run schema in production**
-   - Copy `supabase/schema.sql`
-   - Run in production Supabase project
+   **Important:** Replace `supabase-kong` and `supabase-db` with the actual service names from your Coolify Supabase deployment. You can find these in Coolify under your Supabase service.
 
-3. **Import data** (if needed)
-   ```sql
-   COPY patients FROM '/tmp/patients.csv' CSV HEADER;
-   ```
+5. **Deploy**
+   - Click "Deploy" button
+   - Wait for build to complete
+   - Your app will be available at the Coolify-provided URL
+
+## Step 3: Verify Deployment
+
+1. Access your deployed app URL
+2. Go to `/login/admin`
+3. Login with:
+   - Email: `admin@hospital.com`
+   - Password: `admin123`
 
 ## Troubleshooting
 
-### Build Fails
-- Check Node.js version (18+)
-- Verify all dependencies installed
-- Check for TypeScript errors
-- Review build logs
+### If login still fails:
 
-### Environment Variables Not Working
-- Ensure variables start with `NEXT_PUBLIC_`
-- Restart build after adding variables
-- Check variable names match exactly
+1. **Check service names** in Coolify:
+   - Go to your Supabase service
+   - Note the exact service names (they might be different)
+   - Update environment variables accordingly
 
-### Database Connection Issues
-- Verify Supabase URL is correct
-- Check anon key is valid
-- Ensure RLS policies are set up
-- Test connection from production
+2. **Check logs**:
+   - In Coolify, go to your app → Logs
+   - Look for `[AUTH]` messages
+   - Check for connection errors
 
-### Performance Issues
-- Enable caching
-- Optimize database queries
-- Add database indexes
-- Use CDN for static assets
+3. **Verify Supabase is accessible**:
+   - The app and Supabase must be in the same Docker network
+   - In Coolify, check if they're in the same "Network"
 
-## Scaling
+### Common Service Names in Coolify:
+- Kong: `supabase-kong` or `{project-name}-supabase-kong`
+- PostgreSQL: `supabase-db` or `{project-name}-supabase-db`
+- PostgREST: `supabase-rest` or `{project-name}-supabase-rest`
 
-### Horizontal Scaling
-- Use load balancer
-- Deploy multiple instances
-- Configure session management
-- Use Redis for caching
+## Post-Deployment
 
-### Database Scaling
-- Enable connection pooling
-- Add read replicas
-- Optimize queries
-- Add indexes
+1. **Enable RLS** (if not already done):
+   - Go to Supabase Studio
+   - Run `scripts/enable-rls-security.sql`
 
-### CDN
-- Use Vercel Edge Network (automatic)
-- Or configure Cloudflare
-- Cache static assets
-- Optimize images
+2. **Change default password**:
+   - Login as admin
+   - Go to Settings → Change Password
+   - Use a strong password
 
-## Maintenance
+3. **Create other users**:
+   - Go to Admin → Users
+   - Create receptionist, doctor, pharmacist accounts
 
-### Regular Tasks
-- Monitor error logs
-- Check database performance
-- Review user feedback
-- Update dependencies
-- Backup database
-- Test disaster recovery
+## Local Development
 
-### Updates
-```bash
-# Pull latest changes
-git pull origin main
-
-# Install dependencies
-npm install
-
-# Build
-npm run build
-
-# Restart (PM2)
-pm2 restart hospital-ms
-
-# Or restart (Vercel)
-# Automatic on git push
+For local development, keep using the external URLs:
+```env
+NEXT_PUBLIC_SUPABASE_URL=http://supabasekong-n00wgkck4c0kwkosko4o4g40.82.112.227.34.sslip.io
+SUPABASE_URL=http://supabasekong-n00wgkck4c0kwkosko4o4g40.82.112.227.34.sslip.io
 ```
 
-## Support
-
-For deployment issues:
-1. Check platform documentation
-2. Review error logs
-3. Test locally first
-4. Check environment variables
-5. Verify database connection
-
-## Cost Estimates
-
-### Vercel (Recommended)
-- Hobby: Free (personal projects)
-- Pro: $20/month (production)
-
-### Netlify
-- Starter: Free
-- Pro: $19/month
-
-### Railway
-- Hobby: $5/month
-- Developer: $20/month
-
-### DigitalOcean
-- Basic Droplet: $6/month
-- App Platform: $12/month
-
-### AWS Amplify
-- Pay as you go
-- ~$15-30/month typical
-
-### Supabase
-- Free tier: 500MB database
-- Pro: $25/month (recommended for production)
-
-## Recommended Setup
-
-For production hospital use:
-
-**Platform**: Vercel Pro ($20/month)
-**Database**: Supabase Pro ($25/month)
-**Domain**: Custom domain ($10-15/year)
-**SSL**: Included with Vercel
-**Monitoring**: Vercel Analytics (included)
-
-**Total**: ~$45/month + domain
-
----
-
-Need help? Check the troubleshooting section or review platform documentation.
+But note that REST API access may be limited from external networks.

@@ -1,23 +1,33 @@
-// Server-side Supabase client (uses service role key)
-// This should ONLY be used in API routes and server components
+// Server-side database client
+// Uses direct PostgreSQL connection instead of Supabase REST API
+import { Pool } from 'pg'
 import { createClient } from '@supabase/supabase-js'
 
-if (!process.env.SUPABASE_URL) {
-  throw new Error('Missing SUPABASE_URL environment variable')
-}
+// PostgreSQL direct connection (fallback if Supabase REST API not working)
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+})
 
-if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable')
-}
-
-// This client has full database access - use carefully!
-export const supabaseServer = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
-    }
+// Supabase client (if REST API is working)
+let supabaseClient: any = null
+if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  try {
+    supabaseClient = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false
+        }
+      }
+    )
+  } catch (e) {
+    console.warn('[SUPABASE] Failed to create client, will use direct PostgreSQL')
   }
-)
+}
+
+// Export both for flexibility
+export const supabaseServer = supabaseClient
+export const db = pool

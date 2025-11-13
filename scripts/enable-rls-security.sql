@@ -15,6 +15,8 @@ ALTER TABLE medicine_prescriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE physical_treatment_prescriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE stock_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE stock_transactions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE charges ENABLE ROW LEVEL SECURITY;
+ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
 
 -- Create simple policies that block all anon key access
 -- (Your API routes with service role will bypass these automatically)
@@ -28,6 +30,8 @@ CREATE POLICY "block_anon_medicine_prescriptions" ON medicine_prescriptions FOR 
 CREATE POLICY "block_anon_physical_treatment_prescriptions" ON physical_treatment_prescriptions FOR ALL USING (false);
 CREATE POLICY "block_anon_stock_items" ON stock_items FOR ALL USING (false);
 CREATE POLICY "block_anon_stock_transactions" ON stock_transactions FOR ALL USING (false);
+CREATE POLICY "block_anon_charges" ON charges FOR ALL USING (false);
+CREATE POLICY "block_anon_audit_logs" ON audit_logs FOR ALL USING (false);
 
 -- ============================================
 -- VERIFICATION

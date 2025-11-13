@@ -4,7 +4,11 @@ import { NextRequest } from 'next/server'
 import { supabaseServer } from './supabase-server'
 import { sign, verify } from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production'
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+  throw new Error('JWT_SECRET must be set and at least 32 characters long')
+}
+
+const JWT_SECRET = process.env.JWT_SECRET
 const SESSION_COOKIE_NAME = 'hospital_session'
 
 export type SessionUser = {
@@ -69,28 +73,47 @@ export async function verifyCredentials(
   requiredRole?: string
 ): Promise<{ user: SessionUser | null; error: string | null }> {
   try {
-    // Get user from database
-    const { data: user, error: userError } = await supabaseServer
-      .from('users')
-      .select('*')
-      .eq('email', email)
-      .eq('is_active', true)
-      .single()
+    let user: any = null
+    
+    // Try Supabase first
+    if (supabaseServer) {
+      const { data, error: userError } = await supabaseServer
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .eq('is_active', true)
+        .single()
+      
+      if (!userError && data) {
+        user = data
+      }
+    }
+    
+    // Fallback to direct PostgreSQL if Supabase failed
+    if (!user) {
+      try {
+        const { db: pgPool } = await import('./supabase-server')
+        const result = await pgPool.query(
+          'SELECT * FROM users WHERE email = $1 AND is_active = true LIMIT 1',
+          [email]
+        )
+        if (result.rows.length > 0) {
+          user = result.rows[0]
+        }
+      } catch (dbError: any) {
+        console.error('[AUTH] Database connection error:', dbError.message)
+      }
+    }
 
-    if (userError || !user) {
+    if (!user) {
       return { user: null, error: 'Invalid email or password' }
     }
 
-    // Verify password
-    const { data: isValid, error: verifyError } = await supabaseServer.rpc(
-      'verify_password',
-      {
-        password: password,
-        password_hash: user.password_hash,
-      }
-    )
+    // Verify password using bcrypt
+    const bcrypt = require('bcryptjs')
+    const isValid = await bcrypt.compare(password, user.password_hash)
 
-    if (verifyError || !isValid) {
+    if (!isValid) {
       return { user: null, error: 'Invalid email or password' }
     }
 

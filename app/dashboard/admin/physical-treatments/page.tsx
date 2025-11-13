@@ -91,6 +91,26 @@ export default function AdminPhysicalTreatmentsPage() {
     setShowEditModal(true)
   }
 
+  const handleDeleteTreatment = async (treatment: any) => {
+    if (!confirm(`Are you sure you want to delete "${treatment.name}"? This action cannot be undone.`)) {
+      return
+    }
+
+    try {
+      const { error } = await (supabase as any)
+        .from('physical_treatments')
+        .delete()
+        .eq('id', treatment.id)
+
+      if (error) throw error
+
+      alert('Treatment deleted successfully!')
+      loadTreatments()
+    } catch (error: any) {
+      alert('Error deleting treatment: ' + error.message)
+    }
+  }
+
   const filteredTreatments = treatments.filter(treatment =>
     treatment.name.toLowerCase().includes(searchTerm.toLowerCase())
   )

@@ -102,6 +102,26 @@ export default function AdminMedicinesPage() {
     setShowForm(true)
   }
 
+  const handleDelete = async (medicine: any) => {
+    if (!confirm(`Are you sure you want to delete "${medicine.name}"? This action cannot be undone.`)) {
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/medicines/${medicine.id}`, {
+        method: 'DELETE',
+      })
+
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error)
+
+      alert('Medicine deleted successfully!')
+      loadMedicines()
+    } catch (error: any) {
+      alert('Error deleting medicine: ' + error.message)
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="card">
