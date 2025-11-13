@@ -11,6 +11,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  
+  // Skip generating error pages during build
+  // They will be generated at runtime
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 }
 
 module.exports = nextConfig
