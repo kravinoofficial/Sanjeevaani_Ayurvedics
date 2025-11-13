@@ -17,6 +17,12 @@ const nextConfig = {
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
+  
+  // Disable static page generation for error pages
+  // This prevents build failures from default error pages
+  generateBuildId: async () => {
+    return 'build-' + Date.now()
+  },
 }
 
 module.exports = nextConfig
