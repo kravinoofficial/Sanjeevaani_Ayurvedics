@@ -4,11 +4,26 @@ import { NextRequest } from 'next/server'
 import { supabaseServer } from './supabase-server'
 import { sign, verify } from 'jsonwebtoken'
 
-if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
-  throw new Error('JWT_SECRET must be set and at least 32 characters long')
+// Lazy validation - only check JWT_SECRET when actually used
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET
+  
+  // Allow build to proceed without JWT_SECRET
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('JWT_SECRET must be set in production')
+    }
+    // Return a placeholder for build time
+    return 'build-time-placeholder-jwt-secret-minimum-32-characters-long'
+  }
+  
+  if (secret.length < 32) {
+    throw new Error('JWT_SECRET must be at least 32 characters long')
+  }
+  
+  return secret
 }
 
-const JWT_SECRET = process.env.JWT_SECRET
 const SESSION_COOKIE_NAME = 'hospital_session'
 
 export type SessionUser = {
@@ -21,7 +36,7 @@ export type SessionUser = {
 
 // Create session token
 export function createSessionToken(user: SessionUser): string {
-  return sign(user, JWT_SECRET, {
+  return sign(user, getJwtSecret(), {
     expiresIn: '8h', // Session expires after 8 hours
   })
 }
@@ -29,7 +44,7 @@ export function createSessionToken(user: SessionUser): string {
 // Verify session token
 export function verifySessionToken(token: string): SessionUser | null {
   try {
-    return verify(token, JWT_SECRET) as SessionUser
+    return verify(token, getJwtSecret()) as SessionUser
   } catch {
     return null
   }
