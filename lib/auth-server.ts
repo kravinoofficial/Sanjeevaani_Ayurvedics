@@ -88,10 +88,12 @@ export async function verifyCredentials(
   requiredRole?: string
 ): Promise<{ user: SessionUser | null; error: string | null }> {
   try {
+    console.log('[AUTH] Attempting login for:', email)
     let user: any = null
     
     // Try Supabase first
     if (supabaseServer) {
+      console.log('[AUTH] Querying Supabase for user...')
       const { data, error: userError } = await supabaseServer
         .from('users')
         .select('*')
@@ -99,21 +101,34 @@ export async function verifyCredentials(
         .eq('is_active', true)
         .single()
       
-      if (!userError && data) {
-        user = data
+      if (userError) {
+        console.log('[AUTH] Supabase error:', userError.message)
       }
+      
+      if (!userError && data) {
+        console.log('[AUTH] User found in Supabase:', { email: data.email, role: data.role })
+        user = data
+      } else {
+        console.log('[AUTH] User not found in Supabase')
+      }
+    } else {
+      console.log('[AUTH] Supabase client not available')
     }
     
     // Fallback to direct PostgreSQL if Supabase failed
-    if (!user) {
+    if (!user && process.env.DATABASE_URL) {
       try {
+        console.log('[AUTH] Trying PostgreSQL fallback...')
         const { db: pgPool } = await import('./supabase-server')
-        const result = await pgPool.query(
-          'SELECT * FROM users WHERE email = $1 AND is_active = true LIMIT 1',
-          [email]
-        )
-        if (result.rows.length > 0) {
-          user = result.rows[0]
+        if (pgPool) {
+          const result = await pgPool.query(
+            'SELECT * FROM users WHERE email = $1 AND is_active = true LIMIT 1',
+            [email]
+          )
+          if (result.rows.length > 0) {
+            console.log('[AUTH] User found in PostgreSQL')
+            user = result.rows[0]
+          }
         }
       } catch (dbError: any) {
         console.error('[AUTH] Database connection error:', dbError.message)
@@ -121,21 +136,28 @@ export async function verifyCredentials(
     }
 
     if (!user) {
+      console.log('[AUTH] No user found with email:', email)
       return { user: null, error: 'Invalid email or password' }
     }
+
+    console.log('[AUTH] Verifying password...')
 
     // Verify password using bcrypt
     const bcrypt = require('bcryptjs')
     const isValid = await bcrypt.compare(password, user.password_hash)
 
     if (!isValid) {
+      console.log('[AUTH] Password verification failed')
       return { user: null, error: 'Invalid email or password' }
     }
+
+    console.log('[AUTH] Password verified successfully')
 
     // Check role if required
     if (requiredRole && requiredRole !== 'staff') {
       // For non-staff logins, require exact role match
       if (user.role !== requiredRole) {
+        console.log('[AUTH] Role mismatch. Required:', requiredRole, 'Got:', user.role)
         return {
           user: null,
           error: `Access denied. This login is for ${requiredRole} only.`,
@@ -156,8 +178,10 @@ export async function verifyCredentials(
 
     // Return user without password
     const { password_hash, ...sessionUser } = user
+    console.log('[AUTH] Login successful for:', sessionUser.email)
     return { user: sessionUser as SessionUser, error: null }
   } catch (error: any) {
+    console.error('[AUTH] Authentication error:', error.message)
     return { user: null, error: error.message || 'Authentication failed' }
   }
 }
