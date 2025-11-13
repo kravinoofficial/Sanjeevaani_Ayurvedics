@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   },
 }
 
+// Force dynamic rendering for all pages (this is an authenticated app)
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 export default function RootLayout({
   children,
 }: {
