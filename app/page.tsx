@@ -249,7 +249,10 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="text-center mt-4 pt-4 border-t border-gray-200">
-            <p className="text-xs text-gray-500">© 2024 Sanjeevani Ayurvedics. All rights reserved.</p>
+            <p className="text-xs text-gray-500">© 2025 Sanjeevani Ayurvedics. All rights reserved.</p>
+            <p className="text-xs text-gray-400 mt-1">
+              Website built by <a href="https://touchpointe.digital/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Touchpointe Digital</a>
+            </p>
           </div>
         </div>
       </footer>
