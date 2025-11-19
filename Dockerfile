@@ -16,10 +16,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Disable telemetry during build
+# Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV production
 
-RUN npm run build
+# Build the application
+RUN npm run build || (echo "Build failed, checking artifacts..." && ls -la .next/ && exit 1)
 
 # Production image, copy all the files and run next
 FROM base AS runner
