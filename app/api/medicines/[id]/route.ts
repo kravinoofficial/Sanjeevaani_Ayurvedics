@@ -45,7 +45,7 @@ export async function PUT(
     if (price !== undefined) updateData.price = Number(price)
     updateData.updated_at = new Date().toISOString()
 
-    const { data, error } = await supabaseServer
+    const { data, error} = await (supabaseServer as any)
       .from('medicines')
       .update(updateData)
       .eq('id', params.id)

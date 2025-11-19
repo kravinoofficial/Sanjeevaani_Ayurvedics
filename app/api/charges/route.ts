@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('charges')
       .insert({
         charge_type,

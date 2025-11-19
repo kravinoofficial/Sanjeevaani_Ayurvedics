@@ -11,7 +11,7 @@ export async function PATCH(
 
     const { is_active } = await request.json()
 
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('users')
       .update({ is_active })
       .eq('id', params.id)

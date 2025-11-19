@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     const patientId = `P${String((count || 0) + 1).padStart(3, '0')}`
 
     // Insert patient
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('patients')
       .insert({
         patient_id: patientId,

@@ -38,13 +38,13 @@ export async function PUT(
     const body = await request.json()
     const { amount, description, is_active } = body
 
-    const updateData: any = {}
+    const updateData: Record<string, any> = {}
     if (amount !== undefined) updateData.amount = Number(amount)
     if (description !== undefined) updateData.description = description
     if (is_active !== undefined) updateData.is_active = is_active
     updateData.updated_at = new Date().toISOString()
 
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('charges')
       .update(updateData)
       .eq('id', params.id)

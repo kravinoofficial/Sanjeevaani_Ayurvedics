@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     const password_hash = await bcrypt.hash(password, 10)
 
     // Insert user
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('users')
       .insert({
         email,
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
   try {
     await requireRole(['admin'])
 
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('users')
       .select('id, email, full_name, role, is_active, created_at, updated_at')
       .order('created_at', { ascending: false })

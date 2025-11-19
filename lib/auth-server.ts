@@ -91,7 +91,7 @@ export async function verifyCredentials(
     console.log('[AUTH] Attempting login for:', email)
     console.log('[AUTH] Querying Supabase...')
     
-    const { data: user, error: queryError } = await supabaseServer
+    const { data: user, error: queryError } = await (supabaseServer as any)
       .from('users')
       .select('*')
       .eq('email', email)

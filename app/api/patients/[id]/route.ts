@@ -41,7 +41,7 @@ export async function PUT(
     const body = await request.json()
     const { full_name, age, gender, phone, address } = body
 
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('patients')
       .update({
         full_name,

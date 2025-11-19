@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabaseServer
+    const { data, error } = await (supabaseServer as any)
       .from('medicines')
       .insert({
         name,
