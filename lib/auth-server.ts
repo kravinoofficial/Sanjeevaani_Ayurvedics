@@ -89,56 +89,22 @@ export async function verifyCredentials(
 ): Promise<{ user: SessionUser | null; error: string | null }> {
   try {
     console.log('[AUTH] Attempting login for:', email)
-    let user: any = null
+    console.log('[AUTH] Querying Supabase...')
     
-    // Try Supabase first
-    if (supabaseServer) {
-      console.log('[AUTH] Querying Supabase for user...')
-      const { data, error: userError } = await supabaseServer
-        .from('users')
-        .select('*')
-        .eq('email', email)
-        .eq('is_active', true)
-        .single()
-      
-      if (userError) {
-        console.log('[AUTH] Supabase error:', userError.message)
-      }
-      
-      if (!userError && data) {
-        console.log('[AUTH] User found in Supabase:', { email: data.email, role: data.role })
-        user = data
-      } else {
-        console.log('[AUTH] User not found in Supabase')
-      }
-    } else {
-      console.log('[AUTH] Supabase client not available')
-    }
+    const { data: user, error: queryError } = await supabaseServer
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .eq('is_active', true)
+      .single()
     
-    // Fallback to direct PostgreSQL if Supabase failed
-    if (!user && process.env.DATABASE_URL) {
-      try {
-        console.log('[AUTH] Trying PostgreSQL fallback...')
-        const { db: pgPool } = await import('./supabase-server')
-        if (pgPool) {
-          const result = await pgPool.query(
-            'SELECT * FROM users WHERE email = $1 AND is_active = true LIMIT 1',
-            [email]
-          )
-          if (result.rows.length > 0) {
-            console.log('[AUTH] User found in PostgreSQL')
-            user = result.rows[0]
-          }
-        }
-      } catch (dbError: any) {
-        console.error('[AUTH] Database connection error:', dbError.message)
-      }
-    }
-
-    if (!user) {
+    if (queryError || !user) {
+      console.log('[AUTH] Query error:', queryError)
       console.log('[AUTH] No user found with email:', email)
       return { user: null, error: 'Invalid email or password' }
     }
+    
+    console.log('[AUTH] User found:', { email: user.email, role: user.role })
 
     console.log('[AUTH] Verifying password...')
 

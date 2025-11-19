@@ -35,40 +35,26 @@ export default function AdminUsersPage() {
   }, [searchQuery, users])
 
   const loadUsers = async () => {
-    const { data } = await (supabase as any)
-      .from('users')
-      .select('id, email, full_name, role, is_active, created_at, updated_at')
-      .order('created_at', { ascending: false })
-    setUsers(data || [])
-    setFilteredUsers(data || [])
+    const response = await fetch('/api/users')
+    const result = await response.json()
+    setUsers(result.users || [])
+    setFilteredUsers(result.users || [])
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     try {
-      // Hash password using PostgreSQL function
-      const { data: hashData, error: hashError } = await (supabase as any)
-        .rpc('hash_password', { password: formData.password })
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
 
-      if (hashError || !hashData) {
-        alert('Error hashing password: ' + (hashError?.message || 'Unknown error'))
-        return
-      }
+      const result = await response.json()
 
-      // Insert user
-      const { error: insertError } = await (supabase as any)
-        .from('users')
-        .insert({
-          email: formData.email,
-          password_hash: hashData,
-          full_name: formData.full_name,
-          role: formData.role,
-          is_active: true
-        })
-
-      if (insertError) {
-        alert('Error creating user: ' + insertError.message)
+      if (!response.ok) {
+        alert('Error creating user: ' + result.error)
         return
       }
 
@@ -83,12 +69,19 @@ export default function AdminUsersPage() {
 
   const toggleUserStatus = async (userId: string, currentStatus: boolean) => {
     try {
-      const { error } = await (supabase as any)
-        .from('users')
-        .update({ is_active: !currentStatus })
-        .eq('id', userId)
-      
-      if (error) throw error
+      const response = await fetch(`/api/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_active: !currentStatus })
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        alert('Error: ' + result.error)
+        return
+      }
+
       loadUsers()
     } catch (error: any) {
       alert('Error: ' + error.message)
@@ -175,6 +168,7 @@ export default function AdminUsersPage() {
                     <option value="doctor">Doctor</option>
                     <option value="pharmacist">Pharmacist</option>
                     <option value="physical_medicine">Physical Medicine</option>
+                    <option value="staff">Staff</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>

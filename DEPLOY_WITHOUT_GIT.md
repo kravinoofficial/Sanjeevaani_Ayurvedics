@@ -98,19 +98,21 @@ git commit -m "Initial commit"
 When deploying, add these environment variables in Coolify:
 
 ```env
-# Supabase (use internal Docker network names)
-NEXT_PUBLIC_SUPABASE_URL=http://supabase-kong:8000
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mjk2Njg2MCwiZXhwIjo0OTE4NjQwNDYwLCJyb2xlIjoiYW5vbiJ9.obNvHeTjpCNnKVutRoWh3EeHVBGhpGWzBGaHLkfqj5A
+# Supabase (use your actual values from .env file)
+NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
 
-SUPABASE_URL=http://supabase-kong:8000
-SUPABASE_SERVICE_ROLE_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mjk2Njg2MCwiZXhwIjo0OTE4NjQwNDYwLCJyb2xlIjoic2VydmljZV9yb2xlIn0.-zf-aLLkxwl1Sx-j3dfz5l7Ytts4W_V4segKiGNqdqE
+SUPABASE_URL=<your-supabase-url>
+SUPABASE_SERVICE_KEY=<your-service-key>
 
-JWT_SECRET=f213e827093bc61d01a3856bf3a820f36def8ec4d35b33084f26602cca87f368
+JWT_SECRET=<your-jwt-secret>
 
-DATABASE_URL=postgresql://postgres:JMHF7Ay8Ds8z5zU07hPkFKH4YPry50@supabase-db:5432/postgres
+DATABASE_URL=<your-database-url>
 
 NODE_ENV=production
 ```
+
+**Note:** Replace the placeholder values with your actual credentials from your `.env` file. For internal Docker network deployments, use service names like `http://supabase-kong:8000` for URLs.
 
 **Important:** Find the exact service names in Coolify:
 - Go to your Supabase service

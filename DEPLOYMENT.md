@@ -35,22 +35,24 @@ git push -u origin main
    In Coolify, go to your application → Environment Variables and add:
 
    ```env
-   # Supabase Configuration (use internal Docker network URLs)
-   NEXT_PUBLIC_SUPABASE_URL=http://supabase-kong:8000
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mjk2Njg2MCwiZXhwIjo0OTE4NjQwNDYwLCJyb2xlIjoiYW5vbiJ9.obNvHeTjpCNnKVutRoWh3EeHVBGhpGWzBGaHLkfqj5A
+   # Supabase Configuration (use your actual values from .env file)
+   NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
    
-   SUPABASE_URL=http://supabase-kong:8000
-   SUPABASE_SERVICE_ROLE_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mjk2Njg2MCwiZXhwIjo0OTE4NjQwNDYwLCJyb2xlIjoic2VydmljZV9yb2xlIn0.-zf-aLLkxwl1Sx-j3dfz5l7Ytts4W_V4segKiGNqdqE
+   SUPABASE_URL=<your-supabase-url>
+   SUPABASE_SERVICE_KEY=<your-service-key>
    
    # JWT Secret
-   JWT_SECRET=f213e827093bc61d01a3856bf3a820f36def8ec4d35b33084f26602cca87f368
+   JWT_SECRET=<your-jwt-secret>
    
-   # PostgreSQL (use internal Docker network)
-   DATABASE_URL=postgresql://postgres:JMHF7Ay8Ds8z5zU07hPkFKH4YPry50@supabase-db:5432/postgres
+   # PostgreSQL
+   DATABASE_URL=<your-database-url>
    
    # Node Environment
    NODE_ENV=production
    ```
+
+   **Note:** Replace the placeholder values with your actual credentials from your `.env` file. For internal Docker network deployments, use service names like `http://supabase-kong:8000` for URLs and `supabase-db` for database host.
 
    **Important:** Replace `supabase-kong` and `supabase-db` with the actual service names from your Coolify Supabase deployment. You can find these in Coolify under your Supabase service.
 
@@ -107,10 +109,4 @@ git push -u origin main
 
 ## Local Development
 
-For local development, keep using the external URLs:
-```env
-NEXT_PUBLIC_SUPABASE_URL=http://supabasekong-n00wgkck4c0kwkosko4o4g40.82.112.227.34.sslip.io
-SUPABASE_URL=http://supabasekong-n00wgkck4c0kwkosko4o4g40.82.112.227.34.sslip.io
-```
-
-But note that REST API access may be limited from external networks.
+For local development, use the external URLs from your `.env` file. Note that REST API access may be limited from external networks.
