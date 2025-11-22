@@ -133,6 +133,22 @@ ON CONFLICT (email) DO NOTHING;
 
 -- Stock Management Tables
 
+-- Suppliers table
+CREATE TABLE suppliers (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  name TEXT NOT NULL,
+  contact_person TEXT,
+  phone TEXT,
+  email TEXT,
+  address TEXT,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create index for suppliers
+CREATE INDEX idx_suppliers_name ON suppliers(name);
+
 -- Stock items table
 CREATE TABLE stock_items (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -144,7 +160,7 @@ CREATE TABLE stock_items (
   min_quantity INTEGER DEFAULT 10,
   max_quantity INTEGER,
   price DECIMAL(10,2),
-  supplier TEXT,
+  supplier_id UUID REFERENCES suppliers(id),
   location TEXT,
   expiry_date DATE,
   batch_number TEXT,

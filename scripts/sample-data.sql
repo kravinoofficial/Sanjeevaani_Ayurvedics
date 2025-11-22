@@ -125,21 +125,45 @@ INSERT INTO patients (patient_id, full_name, age, gender, phone, address) VALUES
 ON CONFLICT (patient_id) DO NOTHING;
 
 -- ============================================
--- 6. SAMPLE STOCK ITEMS
+-- 6. SAMPLE SUPPLIERS
 -- ============================================
 
-INSERT INTO stock_items (name, category, description, unit, quantity, min_quantity, price, location) VALUES
-('Surgical Gloves', 'supply', 'Disposable latex gloves', 'Box', 50, 10, 15.00, 'Storage Room A'),
-('Syringes 5ml', 'supply', 'Disposable syringes', 'Pack', 100, 20, 8.00, 'Storage Room A'),
-('Bandages', 'supply', 'Sterile bandages', 'Roll', 75, 15, 3.00, 'Storage Room B'),
-('Cotton Swabs', 'consumable', 'Medical cotton swabs', 'Pack', 200, 30, 2.00, 'Storage Room B'),
-('Thermometer Digital', 'equipment', 'Digital thermometer', 'Unit', 10, 3, 25.00, 'Equipment Room'),
-('BP Monitor', 'equipment', 'Blood pressure monitor', 'Unit', 5, 2, 150.00, 'Equipment Room'),
-('Stethoscope', 'equipment', 'Medical stethoscope', 'Unit', 8, 2, 80.00, 'Equipment Room'),
-('Alcohol Swabs', 'consumable', 'Antiseptic wipes', 'Box', 150, 25, 5.00, 'Storage Room A'),
-('Face Masks', 'supply', 'Surgical face masks', 'Box', 100, 20, 10.00, 'Storage Room A'),
-('Hand Sanitizer', 'consumable', 'Antibacterial sanitizer', 'Bottle', 50, 10, 12.00, 'Storage Room B')
+INSERT INTO suppliers (name, contact_person, phone, email, address, is_active) VALUES
+('Arya Vaidya Sala', 'Ramesh Kumar', '9876543220', 'sales@aryavaidyasala.com', 'Kottakkal, Kerala', true),
+('Kottakkal Ayurveda', 'Suresh Nair', '9876543221', 'info@kottakkal.com', 'Malappuram, Kerala', true),
+('Dabur India Ltd', 'Priya Sharma', '9876543222', 'contact@dabur.com', 'Ghaziabad, UP', true),
+('Himalaya Wellness', 'Amit Patel', '9876543223', 'sales@himalayawellness.com', 'Bangalore, Karnataka', true),
+('Baidyanath Ayurved', 'Sneha Reddy', '9876543224', 'info@baidyanath.com', 'Kolkata, West Bengal', true)
 ON CONFLICT DO NOTHING;
+
+-- ============================================
+-- 7. SAMPLE STOCK ITEMS (Ayurvedic Medicines)
+-- ============================================
+
+-- Get supplier IDs for reference
+DO $$
+DECLARE
+  supplier1_id UUID;
+  supplier2_id UUID;
+  supplier3_id UUID;
+BEGIN
+  SELECT id INTO supplier1_id FROM suppliers WHERE name = 'Arya Vaidya Sala' LIMIT 1;
+  SELECT id INTO supplier2_id FROM suppliers WHERE name = 'Kottakkal Ayurveda' LIMIT 1;
+  SELECT id INTO supplier3_id FROM suppliers WHERE name = 'Dabur India Ltd' LIMIT 1;
+
+  INSERT INTO stock_items (name, category, description, unit, quantity, min_quantity, price, supplier_id, location) VALUES
+  ('Chyawanprash', 'lehyam', 'Immunity booster lehyam', '500g', 50, 10, 250.00, supplier3_id, 'Shelf A1'),
+  ('Brahma Rasayanam', 'rasayanam', 'Brain tonic and memory enhancer', '200g', 30, 5, 450.00, supplier1_id, 'Shelf A2'),
+  ('Ashwagandharishta', 'arishtam', 'Stress relief and vitality', '450ml', 40, 8, 180.00, supplier2_id, 'Shelf B1'),
+  ('Drakshasava', 'aasavam', 'Digestive and appetizer', '450ml', 35, 8, 160.00, supplier1_id, 'Shelf B2'),
+  ('Triphala Tablets', 'tablet', 'Digestive health tablets', '60 tablets', 100, 20, 120.00, supplier3_id, 'Shelf C1'),
+  ('Trikatu Choornam', 'choornam', 'Digestive powder', '50g', 60, 15, 80.00, supplier2_id, 'Shelf C2'),
+  ('Dhanwantharam Thailam', 'thailam', 'Massage oil for body pain', '200ml', 45, 10, 220.00, supplier1_id, 'Shelf D1'),
+  ('Pinda Thailam', 'ointment', 'Pain relief ointment', '50g', 70, 15, 95.00, supplier2_id, 'Shelf D2'),
+  ('Dasamoola Kashayam', 'kashayam', 'Decoction for respiratory health', '200ml', 25, 5, 140.00, supplier1_id, 'Shelf E1'),
+  ('Amrutharishtam', 'arishtam', 'Fever and immunity', '450ml', 30, 8, 175.00, supplier2_id, 'Shelf B3')
+  ON CONFLICT DO NOTHING;
+END $$;
 
 -- ============================================
 -- VERIFICATION QUERIES
@@ -156,6 +180,9 @@ SELECT COUNT(*) as treatment_count FROM physical_treatments;
 
 -- Check patients count
 SELECT COUNT(*) as patient_count FROM patients;
+
+-- Check suppliers count
+SELECT COUNT(*) as supplier_count FROM suppliers;
 
 -- Check stock items count
 SELECT COUNT(*) as stock_count FROM stock_items;

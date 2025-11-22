@@ -20,18 +20,19 @@ export default function AdminStockPage() {
   const [stockFilter, setStockFilter] = useState('all')
   const [newItem, setNewItem] = useState({
     name: '',
-    category: 'medicine',
+    category: 'lehyam',
     description: '',
     unit: '',
     quantity: 0,
     min_quantity: 10,
     max_quantity: null,
     price: 0,
-    supplier: '',
+    supplier_id: '',
     location: '',
     expiry_date: '',
     batch_number: ''
   })
+  const [suppliers, setSuppliers] = useState<any[]>([])
   const [transaction, setTransaction] = useState({
     type: 'in',
     quantity: 0,
@@ -42,7 +43,18 @@ export default function AdminStockPage() {
   useEffect(() => {
     loadCurrentUser()
     loadStockItems()
+    loadSuppliers()
   }, [])
+
+  const loadSuppliers = async () => {
+    try {
+      const response = await fetch('/api/suppliers')
+      const result = await response.json()
+      setSuppliers(result.suppliers || [])
+    } catch (error) {
+      console.error('Error loading suppliers:', error)
+    }
+  }
 
   useEffect(() => {
     filterItems()
@@ -57,7 +69,10 @@ export default function AdminStockPage() {
     setLoading(true)
     const { data, error } = await supabase
       .from('stock_items')
-      .select('*')
+      .select(`
+        *,
+        supplier:suppliers(id, name)
+      `)
       .order('name')
 
     if (error) {
@@ -139,7 +154,7 @@ export default function AdminStockPage() {
           min_quantity: selectedItem.min_quantity,
           max_quantity: selectedItem.max_quantity || null,
           price: selectedItem.price,
-          supplier: selectedItem.supplier || null,
+          supplier_id: selectedItem.supplier_id || null,
           location: selectedItem.location || null,
           expiry_date: selectedItem.expiry_date || null,
           batch_number: selectedItem.batch_number || null,
@@ -216,14 +231,14 @@ export default function AdminStockPage() {
   const resetNewItem = () => {
     setNewItem({
       name: '',
-      category: 'medicine',
+      category: 'lehyam',
       description: '',
       unit: '',
       quantity: 0,
       min_quantity: 10,
       max_quantity: null,
       price: 0,
-      supplier: '',
+      supplier_id: '',
       location: '',
       expiry_date: '',
       batch_number: ''
@@ -422,7 +437,7 @@ export default function AdminStockPage() {
                         ₹{item.price?.toFixed(2) || '0.00'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {item.supplier || '-'}
+                        {item.supplier?.name || '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         <button
@@ -530,12 +545,16 @@ export default function AdminStockPage() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Supplier</label>
-                <input
-                  type="text"
-                  value={newItem.supplier}
-                  onChange={(e) => setNewItem({ ...newItem, supplier: e.target.value })}
+                <select
+                  value={newItem.supplier_id}
+                  onChange={(e) => setNewItem({ ...newItem, supplier_id: e.target.value })}
                   className="input-field"
-                />
+                >
+                  <option value="">Select Supplier</option>
+                  {suppliers.filter(s => s.is_active).map(supplier => (
+                    <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Location</label>
@@ -657,12 +676,16 @@ export default function AdminStockPage() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Supplier</label>
-                <input
-                  type="text"
-                  value={selectedItem.supplier || ''}
-                  onChange={(e) => setSelectedItem({ ...selectedItem, supplier: e.target.value })}
+                <select
+                  value={selectedItem.supplier_id || ''}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, supplier_id: e.target.value })}
                   className="input-field"
-                />
+                >
+                  <option value="">Select Supplier</option>
+                  {suppliers.filter(s => s.is_active).map(supplier => (
+                    <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Location</label>

@@ -53,6 +53,7 @@ export default function DashboardLayout({
       { label: 'Dashboard', href: '/dashboard', icon: '📊' },
       { label: 'Users', href: '/dashboard/admin/users', icon: '👥' },
       { label: 'Doctors', href: '/dashboard/admin/doctors', icon: '👨‍⚕️' },
+      { label: 'Suppliers', href: '/dashboard/admin/suppliers', icon: '🏢' },
       { label: 'Panchakarma Treatments', href: '/dashboard/admin/physical-treatments', icon: '🏋️' },
       { label: 'Stock Management', href: '/dashboard/admin/stock', icon: '📦' },
       { label: 'Consultation Fee', href: '/dashboard/admin/charges', icon: '💰' },
