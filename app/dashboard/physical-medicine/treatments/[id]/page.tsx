@@ -163,8 +163,8 @@ export default function TreatmentDetailsPage({ params }: { params: { id: string 
       <div className="card">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Physical Treatment Details</h2>
-            <p className="text-gray-600 text-sm mt-1">Manage physical treatment prescriptions</p>
+            <h2 className="text-2xl font-bold text-gray-800">Panchakarma Treatment Details</h2>
+            <p className="text-gray-600 text-sm mt-1">Manage Panchakarma treatment prescriptions</p>
           </div>
           <button
             onClick={() => router.back()}

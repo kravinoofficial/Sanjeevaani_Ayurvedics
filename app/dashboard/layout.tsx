@@ -54,7 +54,7 @@ export default function DashboardLayout({
       { label: 'Users', href: '/dashboard/admin/users', icon: '👥' },
       { label: 'Doctors', href: '/dashboard/admin/doctors', icon: '👨‍⚕️' },
       { label: 'Medicines', href: '/dashboard/admin/medicines', icon: '💊' },
-      { label: 'Physical Treatments', href: '/dashboard/admin/physical-treatments', icon: '🏋️' },
+      { label: 'Panchakarma Treatments', href: '/dashboard/admin/physical-treatments', icon: '🏋️' },
       { label: 'Stock Management', href: '/dashboard/admin/stock', icon: '📦' },
       { label: 'Consultation Fee', href: '/dashboard/admin/charges', icon: '💰' },
       { label: 'Reports', href: '/dashboard/admin/reports', icon: '📈' },
@@ -75,7 +75,7 @@ export default function DashboardLayout({
       { label: 'Prescriptions', href: '/dashboard/pharmacist/prescriptions', icon: '💊' },
       { label: 'Billing', href: '/dashboard/pharmacist/billing', icon: '💰' },
       { label: 'Medicines', href: '/dashboard/pharmacist/medicines', icon: '💉' },
-      { label: 'Physical Treatments', href: '/dashboard/pharmacist/physical-treatments', icon: '🏋️' },
+      { label: 'Panchakarma Treatments', href: '/dashboard/pharmacist/physical-treatments', icon: '🏋️' },
       { label: 'Stock Management', href: '/dashboard/pharmacist/stock', icon: '📦' },
     ],
     physical_medicine: [
@@ -93,7 +93,7 @@ export default function DashboardLayout({
       { label: 'Prescriptions', href: '/dashboard/pharmacist/prescriptions', icon: '💊' },
       { label: 'Billing', href: '/dashboard/pharmacist/billing', icon: '💰' },
       { label: 'Medicines', href: '/dashboard/pharmacist/medicines', icon: '💉' },
-      { label: 'Physical Treatments', href: '/dashboard/pharmacist/physical-treatments', icon: '🏋️' },
+      { label: 'Panchakarma Treatments', href: '/dashboard/pharmacist/physical-treatments', icon: '🏋️' },
       { label: 'Stock Management', href: '/dashboard/pharmacist/stock', icon: '📦' },
     ],
   }

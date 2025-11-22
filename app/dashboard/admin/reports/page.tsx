@@ -771,7 +771,7 @@ export default function AdminReportsPage() {
                         
                         {op.physical_treatment_prescriptions && op.physical_treatment_prescriptions.length > 0 && (
                           <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-2">Physical Treatments:</p>
+                            <p className="text-sm font-semibold text-gray-700 mb-2">Panchakarma Treatments:</p>
                             <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                               {op.physical_treatment_prescriptions.map((treat: any) => (
                                 <li key={treat.id}>

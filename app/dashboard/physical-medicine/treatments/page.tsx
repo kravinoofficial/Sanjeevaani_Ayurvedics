@@ -75,8 +75,8 @@ export default function PhysicalMedicineTreatmentsPage() {
       <div className="card">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Physical Treatment Prescriptions</h2>
-            <p className="text-gray-600 text-sm mt-1">View and manage physical treatment prescriptions by OP</p>
+            <h2 className="text-2xl font-bold text-gray-800">Panchakarma Treatment Prescriptions</h2>
+            <p className="text-gray-600 text-sm mt-1">View and manage Panchakarma treatment prescriptions by OP</p>
           </div>
           <div className="flex items-center gap-4">
             <div>
@@ -105,7 +105,7 @@ export default function PhysicalMedicineTreatmentsPage() {
             </svg>
             <h3 className="mt-4 text-lg font-medium text-gray-900">No treatments</h3>
             <p className="mt-2 text-sm text-gray-500">
-              No physical treatment prescriptions for {new Date(selectedDate).toLocaleDateString('en-US', { 
+              No Panchakarma treatment prescriptions for {new Date(selectedDate).toLocaleDateString('en-US', { 
                 weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 

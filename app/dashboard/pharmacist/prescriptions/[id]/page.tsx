@@ -432,7 +432,7 @@ export default function PrescriptionDetailPage({ params }: { params: { id: strin
         {opData.physical_treatment_prescriptions && opData.physical_treatment_prescriptions.length > 0 && (
           <div className="mb-6 pt-4 border-t border-gray-300 px-8">
             <h3 className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider">
-              Physical Treatment Recommendations
+              Panchakarma Treatment Recommendations
             </h3>
             <div className="space-y-2.5">
               {opData.physical_treatment_prescriptions.map((treatment: any, index: number) => (

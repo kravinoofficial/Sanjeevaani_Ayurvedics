@@ -111,8 +111,8 @@ export default function PharmacistPhysicalTreatmentsPage() {
       <div className="card">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-3xl font-bold text-gray-800">Physical Treatments</h2>
-            <p className="text-gray-600 text-sm mt-1">Manage physical treatments and their pricing</p>
+            <h2 className="text-3xl font-bold text-gray-800">Panchakarma Treatments</h2>
+            <p className="text-gray-600 text-sm mt-1">Manage Panchakarma treatments and their pricing</p>
           </div>
           <button
             onClick={openAddModal}

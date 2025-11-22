@@ -131,8 +131,8 @@ export default function AdminPhysicalTreatmentsPage() {
       <div className="card">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Physical Treatments</h2>
-            <p className="text-gray-600 text-sm mt-1">Manage physical treatment types</p>
+            <h2 className="text-2xl font-bold text-gray-800">Panchakarma Treatments</h2>
+            <p className="text-gray-600 text-sm mt-1">Manage Panchakarma treatment types</p>
           </div>
           <button
             onClick={() => setShowAddModal(true)}
@@ -356,7 +356,7 @@ export default function AdminPhysicalTreatmentsPage() {
           <div>
             <h4 className="font-semibold text-teal-900 mb-1">Treatment Management</h4>
             <ul className="text-sm text-teal-800 space-y-1">
-              <li>• Add new physical treatment types to the system</li>
+              <li>• Add new Panchakarma treatment types to the system</li>
               <li>• Edit treatment details and duration units</li>
               <li>• View all available treatments</li>
               <li>• Search treatments by name</li>

@@ -161,7 +161,7 @@ export default function PharmacistPrescriptionsPage() {
                         </div>
                         {op.physical_treatment_prescriptions && op.physical_treatment_prescriptions.length > 0 && (
                           <div className="text-xs text-purple-600 mt-1">
-                            {op.physical_treatment_prescriptions.length} physical treatment(s)
+                            {op.physical_treatment_prescriptions.length} Panchakarma treatment(s)
                           </div>
                         )}
                       </td>
@@ -205,10 +205,10 @@ export default function PharmacistPrescriptionsPage() {
           <div>
             <h4 className="font-semibold text-teal-900 mb-1">Prescription Information</h4>
             <ul className="text-sm text-teal-800 space-y-1">
-              <li>• All completed OPs are shown, including those with only physical treatments</li>
+              <li>• All completed OPs are shown, including those with only Panchakarma treatments</li>
               <li>• Click "View Details" to see the full OP ticket with all prescriptions</li>
               <li>• You can mark medicines as served or cancelled</li>
-              <li>• Add medicines for physical treatments if needed</li>
+              <li>• Add medicines for Panchakarma treatments if needed</li>
               <li>• Download PDF ticket for patient records</li>
             </ul>
           </div>
