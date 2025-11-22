@@ -11,7 +11,7 @@ export async function GET(
     await requireRole(['admin', 'doctor', 'pharmacist', 'receptionist', 'staff'])
 
     const { data, error } = await supabaseServer
-      .from('medicines')
+      .from('stock_items')
       .select('*')
       .eq('id', params.id)
       .single()
@@ -46,7 +46,7 @@ export async function PUT(
     updateData.updated_at = new Date().toISOString()
 
     const { data, error} = await (supabaseServer as any)
-      .from('medicines')
+      .from('stock_items')
       .update(updateData)
       .eq('id', params.id)
       .select()
@@ -72,7 +72,7 @@ export async function DELETE(
     await requireRole(['admin'])
 
     const { error } = await supabaseServer
-      .from('medicines')
+      .from('stock_items')
       .delete()
       .eq('id', params.id)
 

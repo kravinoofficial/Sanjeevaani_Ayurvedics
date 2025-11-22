@@ -67,17 +67,6 @@ CREATE TABLE op_registrations (
   created_by UUID REFERENCES users(id)
 );
 
--- Medicines table
-CREATE TABLE medicines (
-  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-  name TEXT NOT NULL,
-  description TEXT,
-  unit TEXT,
-  price DECIMAL(10,2),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 -- Physical treatments table
 CREATE TABLE physical_treatments (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -89,11 +78,11 @@ CREATE TABLE physical_treatments (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Medicine prescriptions
+-- Medicine prescriptions (now references stock_items)
 CREATE TABLE medicine_prescriptions (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   op_registration_id UUID REFERENCES op_registrations(id) ON DELETE CASCADE,
-  medicine_id UUID REFERENCES medicines(id),
+  medicine_id UUID REFERENCES stock_items(id),
   quantity INTEGER NOT NULL,
   dosage TEXT,
   instructions TEXT,

@@ -34,7 +34,7 @@ export default function DashboardPage() {
         supabase.from('op_registrations').select('*', { count: 'exact', head: true }).eq('status', 'waiting'),
         supabase.from('medicine_prescriptions').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
         supabase.from('physical_treatment_prescriptions').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
-        supabase.from('medicines').select('*', { count: 'exact', head: true }).lt('stock_quantity', 10),
+        supabase.from('stock_items').select('*', { count: 'exact', head: true }).lt('quantity', 10),
       ])
 
       setStats({
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         supabase.from('op_registrations').select('*', { count: 'exact', head: true }).eq('registration_date', today),
         supabase.from('medicine_prescriptions').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
         supabase.from('physical_treatment_prescriptions').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
-        supabase.from('medicines').select('*', { count: 'exact', head: true }).lt('stock_quantity', 10),
+        supabase.from('stock_items').select('*', { count: 'exact', head: true }).lt('quantity', 10),
       ])
 
       setStats({

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search')
 
     let query = supabaseServer
-      .from('medicines')
+      .from('stock_items')
       .select('*')
       .order('name')
 
@@ -49,11 +49,14 @@ export async function POST(request: NextRequest) {
     }
 
     const { data, error } = await (supabaseServer as any)
-      .from('medicines')
+      .from('stock_items')
       .insert({
         name,
+        category: 'tablet',
         description,
         unit,
+        quantity: 0,
+        min_quantity: 10,
         price: Number(price),
       })
       .select()
