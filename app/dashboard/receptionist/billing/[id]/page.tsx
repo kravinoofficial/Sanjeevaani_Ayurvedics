@@ -27,7 +27,7 @@ export default function GenerateBillPage({ params }: { params: { id: string } })
       .from('op_registrations')
       .select(`
         *,
-        patients (patient_id, full_name, age, gender, phone, address),
+        patients!op_registrations_patient_id_fkey (patient_id, full_name, age, gender, phone, address),
         doctor:users!op_registrations_doctor_id_fkey (full_name),
         medicine_prescriptions (
           id,
@@ -49,7 +49,13 @@ export default function GenerateBillPage({ params }: { params: { id: string } })
       .eq('id', params.id)
       .single()
 
-    if (!error && data) {
+    if (error) {
+      console.error('Error loading OP data:', error)
+    }
+    
+    if (data) {
+      console.log('Loaded OP data:', data)
+      console.log('Patient data:', (data as any).patients)
       setOpData(data)
     }
 
@@ -259,14 +265,23 @@ export default function GenerateBillPage({ params }: { params: { id: string } })
           <div className="grid grid-cols-2 gap-8 mb-8">
             <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
               <h3 className="text-sm font-semibold text-blue-900 mb-3 uppercase">Bill To</h3>
-              <p className="font-bold text-lg text-gray-900">{opData.patients?.full_name}</p>
-              <p className="text-sm text-gray-600 mt-1">Patient ID: {opData.patients?.patient_id}</p>
-              <p className="text-sm text-gray-600">Age: {opData.patients?.age} | Gender: {opData.patients?.gender}</p>
-              {opData.patients?.phone && (
-                <p className="text-sm text-gray-600">Phone: {opData.patients.phone}</p>
-              )}
-              {opData.patients?.address && (
-                <p className="text-sm text-gray-600 mt-2">{opData.patients.address}</p>
+              {opData.patients ? (
+                <>
+                  <p className="font-bold text-lg text-gray-900">{opData.patients.full_name || 'N/A'}</p>
+                  <p className="text-sm text-gray-600 mt-1">Patient ID: {opData.patients.patient_id || 'N/A'}</p>
+                  <p className="text-sm text-gray-600">
+                    Age: {opData.patients.age !== null && opData.patients.age !== undefined ? opData.patients.age : 'N/A'} | 
+                    Gender: {opData.patients.gender || 'N/A'}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Phone: {opData.patients.phone || 'N/A'}
+                  </p>
+                  {opData.patients.address && (
+                    <p className="text-sm text-gray-600 mt-2">{opData.patients.address}</p>
+                  )}
+                </>
+              ) : (
+                <p className="text-sm text-gray-600">Patient information not available</p>
               )}
             </div>
             <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
