@@ -67,7 +67,7 @@ export default function PhysicalMedicineLoginPage() {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-2xl mb-4">
                 <span className="text-5xl">🏋️</span>
               </div>
-              <h1 className="text-3xl font-bold text-teal-900 mb-2">Physical Medicine Login</h1>
+              <h1 className="text-3xl font-bold text-teal-900 mb-2">Panchakarma Login</h1>
               <p className="text-teal-700">Sign in to manage treatments</p>
             </div>
 
@@ -104,7 +104,7 @@ export default function PhysicalMedicineLoginPage() {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-3 rounded-lg hover:shadow-xl transition-all font-semibold disabled:opacity-50 shadow-lg"
               >
-                {loading ? 'Signing in...' : 'Sign In as Physical Medicine'}
+                {loading ? 'Signing in...' : 'Sign In as Panchakarma'}
               </button>
             </form>
           </div>

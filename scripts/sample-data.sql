@@ -58,7 +58,7 @@ VALUES (
   true
 ) ON CONFLICT (email) DO NOTHING;
 
--- Physical Medicine User
+-- Panchakarma User
 INSERT INTO users (email, password_hash, full_name, role, is_active)
 VALUES (
   'physio@hospital.com',
@@ -187,7 +187,7 @@ Pharmacist:
   Email: pharmacist@hospital.com
   Password: pharmacist123
 
-Physical Medicine:
+Panchakarma:
   Email: physio@hospital.com
   Password: physio123
 

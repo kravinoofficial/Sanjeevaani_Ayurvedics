@@ -167,7 +167,7 @@ export default function AdminUsersPage() {
                     <option value="receptionist">Receptionist</option>
                     <option value="doctor">Doctor</option>
                     <option value="pharmacist">Pharmacist</option>
-                    <option value="physical_medicine">Physical Medicine</option>
+                    <option value="physical_medicine">Panchakarma</option>
                     <option value="staff">Staff</option>
                     <option value="admin">Admin</option>
                   </select>

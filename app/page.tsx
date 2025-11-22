@@ -32,7 +32,7 @@ export default function LandingPage() {
     { role: 'receptionist', title: 'Receptionist', icon: '📝', href: '/login/receptionist', featured: false },
     { role: 'doctor', title: 'Doctor', icon: '👨‍⚕️', href: '/login/doctor', featured: false },
     { role: 'pharmacist', title: 'Pharmacist', icon: '💊', href: '/login/pharmacist', featured: false },
-    { role: 'physical_medicine', title: 'Physical Medicine', icon: '🏋️', href: '/login/physical-medicine', featured: false }
+    { role: 'physical_medicine', title: 'Panchakarma', icon: '🏋️', href: '/login/physical-medicine', featured: false }
   ]
 
   return (

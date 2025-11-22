@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
 // POST /api/medicines - Create new medicine
 export async function POST(request: NextRequest) {
   try {
-    await requireRole(['admin', 'pharmacist'])
+    await requireRole(['admin', 'pharmacist', 'staff'])
 
     const body = await request.json()
     const { name, description, unit, price } = body

@@ -33,7 +33,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    await requireRole(['admin', 'pharmacist'])
+    await requireRole(['admin', 'pharmacist', 'staff'])
 
     const body = await request.json()
     const { name, description, unit, price } = body

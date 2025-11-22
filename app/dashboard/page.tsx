@@ -121,7 +121,7 @@ export default function DashboardPage() {
       receptionist: 'Register patients and manage appointments',
       doctor: 'View and serve your patients',
       pharmacist: 'Manage medicine prescriptions',
-      physical_medicine: 'Handle physical treatment prescriptions',
+      physical_medicine: 'Handle Panchakarma treatment prescriptions',
       staff: 'Unified access to all staff functions',
     }
     return greetings[user.role] || 'Welcome to your dashboard'
