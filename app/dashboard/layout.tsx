@@ -76,6 +76,7 @@ export default function DashboardLayout({
       { label: 'Billing', href: '/dashboard/pharmacist/billing', icon: '💰' },
       { label: 'Panchakarma Treatments', href: '/dashboard/pharmacist/physical-treatments', icon: '🏋️' },
       { label: 'Stock Management', href: '/dashboard/pharmacist/stock', icon: '📦' },
+      { label: 'Suppliers', href: '/dashboard/pharmacist/suppliers', icon: '🏢' },
     ],
     physical_medicine: [
       { label: 'Dashboard', href: '/dashboard', icon: '📊' },
@@ -92,7 +93,8 @@ export default function DashboardLayout({
       { label: 'Prescriptions', href: '/dashboard/pharmacist/prescriptions', icon: '💊' },
       { label: 'Billing', href: '/dashboard/pharmacist/billing', icon: '💰' },
       { label: 'Panchakarma Treatments', href: '/dashboard/pharmacist/physical-treatments', icon: '🏋️' },
-      { label: 'Stock Management', href: '/dashboard/pharmacist/stock', icon: '�' },
+      { label: 'Stock Management', href: '/dashboard/pharmacist/stock', icon: '📦' },
+      { label: 'Suppliers', href: '/dashboard/pharmacist/suppliers', icon: '🏢' },
     ],
   }
 
