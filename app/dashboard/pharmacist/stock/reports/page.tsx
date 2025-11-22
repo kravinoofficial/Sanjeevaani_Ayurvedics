@@ -127,10 +127,15 @@ export default function StockReportsPage() {
                 className="input-field"
               >
                 <option value="all">All Categories</option>
-                <option value="medicine">Medicines</option>
-                <option value="equipment">Equipment</option>
-                <option value="supply">Supplies</option>
-                <option value="consumable">Consumables</option>
+                <option value="lehyam">Lehyam</option>
+                <option value="rasayanam">Rasayanam</option>
+                <option value="arishtam">Arishtam</option>
+                <option value="aasavam">Aasavam</option>
+                <option value="tablet">Tablet</option>
+                <option value="choornam">Choornam</option>
+                <option value="ointment">Ointment</option>
+                <option value="kashayam">Kashayam</option>
+                <option value="thailam">Thailam</option>
               </select>
             </div>
 

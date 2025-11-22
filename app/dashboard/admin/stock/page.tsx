@@ -248,12 +248,17 @@ export default function AdminStockPage() {
 
   const getCategoryIcon = (category: string) => {
     const icons: any = {
-      medicine: '💊',
-      equipment: '🏥',
-      supply: '📦',
-      consumable: '🧴'
+      lehyam: '🍯',
+      rasayanam: '💊',
+      arishtam: '🍷',
+      aasavam: '🥃',
+      tablet: '💊',
+      choornam: '🌾',
+      ointment: '🧴',
+      kashayam: '☕',
+      thailam: '🛢️'
     }
-    return icons[category] || '📦'
+    return icons[category] || '💊'
   }
 
   if (loading) {
@@ -312,10 +317,15 @@ export default function AdminStockPage() {
             className="input-field"
           >
             <option value="all">All Categories</option>
-            <option value="medicine">Medicines</option>
-            <option value="equipment">Equipment</option>
-            <option value="supply">Supplies</option>
-            <option value="consumable">Consumables</option>
+            <option value="lehyam">Lehyam</option>
+            <option value="rasayanam">Rasayanam</option>
+            <option value="arishtam">Arishtam</option>
+            <option value="aasavam">Aasavam</option>
+            <option value="tablet">Tablet</option>
+            <option value="choornam">Choornam</option>
+            <option value="ointment">Ointment</option>
+            <option value="kashayam">Kashayam</option>
+            <option value="thailam">Thailam</option>
           </select>
           <select
             value={stockFilter}
@@ -460,10 +470,15 @@ export default function AdminStockPage() {
                   onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
                   className="input-field"
                 >
-                  <option value="medicine">Medicine</option>
-                  <option value="equipment">Equipment</option>
-                  <option value="supply">Supply</option>
-                  <option value="consumable">Consumable</option>
+                  <option value="lehyam">Lehyam</option>
+                  <option value="rasayanam">Rasayanam</option>
+                  <option value="arishtam">Arishtam</option>
+                  <option value="aasavam">Aasavam</option>
+                  <option value="tablet">Tablet</option>
+                  <option value="choornam">Choornam</option>
+                  <option value="ointment">Ointment</option>
+                  <option value="kashayam">Kashayam</option>
+                  <option value="thailam">Thailam</option>
                 </select>
               </div>
               <div className="col-span-2">
@@ -583,10 +598,15 @@ export default function AdminStockPage() {
                   onChange={(e) => setSelectedItem({ ...selectedItem, category: e.target.value })}
                   className="input-field"
                 >
-                  <option value="medicine">Medicine</option>
-                  <option value="equipment">Equipment</option>
-                  <option value="supply">Supply</option>
-                  <option value="consumable">Consumable</option>
+                  <option value="lehyam">Lehyam</option>
+                  <option value="rasayanam">Rasayanam</option>
+                  <option value="arishtam">Arishtam</option>
+                  <option value="aasavam">Aasavam</option>
+                  <option value="tablet">Tablet</option>
+                  <option value="choornam">Choornam</option>
+                  <option value="ointment">Ointment</option>
+                  <option value="kashayam">Kashayam</option>
+                  <option value="thailam">Thailam</option>
                 </select>
               </div>
               <div className="col-span-2">

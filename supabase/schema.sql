@@ -8,8 +8,8 @@ CREATE TYPE user_role AS ENUM ('admin', 'receptionist', 'doctor', 'pharmacist', 
 -- Prescription status enum
 CREATE TYPE prescription_status AS ENUM ('pending', 'served', 'cancelled');
 
--- Stock category enum
-CREATE TYPE stock_category AS ENUM ('medicine', 'equipment', 'supply', 'consumable');
+-- Stock category enum (Ayurvedic medicine types)
+CREATE TYPE stock_category AS ENUM ('lehyam', 'rasayanam', 'arishtam', 'aasavam', 'tablet', 'choornam', 'ointment', 'kashayam', 'thailam');
 
 -- Users table (table-based authentication)
 CREATE TABLE users (
