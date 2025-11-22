@@ -198,14 +198,7 @@ export default function DoctorServePage({ params }: { params: { id: string } }) 
 
   const handleSubmit = async () => {
     try {
-      // Validate that at least one prescription or treatment is provided
-      const hasValidMedicine = medicinePrescriptions.some(mp => mp.medicine_id)
-      const hasValidTreatment = physicalTreatments.some(pt => pt.treatment_type?.trim())
-
-      if (!hasValidMedicine && !hasValidTreatment) {
-        alert('Please add at least one medicine prescription or physical treatment before completing.')
-        return
-      }
+      // Allow completing without prescriptions or treatments
 
       // Validate dosage for all medicine prescriptions
       for (const mp of medicinePrescriptions) {
