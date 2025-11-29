@@ -33,6 +33,7 @@ export default function AdminStockPage() {
     batch_number: ''
   })
   const [suppliers, setSuppliers] = useState<any[]>([])
+  const [categories, setCategories] = useState<any[]>([])
   const [transaction, setTransaction] = useState({
     type: 'in',
     quantity: 0,
@@ -44,6 +45,7 @@ export default function AdminStockPage() {
     loadCurrentUser()
     loadStockItems()
     loadSuppliers()
+    loadCategories()
   }, [])
 
   const loadSuppliers = async () => {
@@ -53,6 +55,16 @@ export default function AdminStockPage() {
       setSuppliers(result.suppliers || [])
     } catch (error) {
       console.error('Error loading suppliers:', error)
+    }
+  }
+
+  const loadCategories = async () => {
+    try {
+      const response = await fetch('/api/medicine-categories')
+      const result = await response.json()
+      setCategories(result.categories || [])
+    } catch (error) {
+      console.error('Error loading categories:', error)
     }
   }
 
@@ -332,15 +344,9 @@ export default function AdminStockPage() {
             className="input-field"
           >
             <option value="all">All Categories</option>
-            <option value="lehyam">Lehyam</option>
-            <option value="rasayanam">Rasayanam</option>
-            <option value="arishtam">Arishtam</option>
-            <option value="aasavam">Aasavam</option>
-            <option value="tablet">Tablet</option>
-            <option value="choornam">Choornam</option>
-            <option value="ointment">Ointment</option>
-            <option value="kashayam">Kashayam</option>
-            <option value="thailam">Thailam</option>
+            {categories.filter(c => c.is_active).map(category => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
           </select>
           <select
             value={stockFilter}
@@ -485,15 +491,10 @@ export default function AdminStockPage() {
                   onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
                   className="input-field"
                 >
-                  <option value="lehyam">Lehyam</option>
-                  <option value="rasayanam">Rasayanam</option>
-                  <option value="arishtam">Arishtam</option>
-                  <option value="aasavam">Aasavam</option>
-                  <option value="tablet">Tablet</option>
-                  <option value="choornam">Choornam</option>
-                  <option value="ointment">Ointment</option>
-                  <option value="kashayam">Kashayam</option>
-                  <option value="thailam">Thailam</option>
+                  <option value="">Select Category</option>
+                  {categories.filter(c => c.is_active).map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
                 </select>
               </div>
               <div className="col-span-2">
@@ -617,15 +618,10 @@ export default function AdminStockPage() {
                   onChange={(e) => setSelectedItem({ ...selectedItem, category: e.target.value })}
                   className="input-field"
                 >
-                  <option value="lehyam">Lehyam</option>
-                  <option value="rasayanam">Rasayanam</option>
-                  <option value="arishtam">Arishtam</option>
-                  <option value="aasavam">Aasavam</option>
-                  <option value="tablet">Tablet</option>
-                  <option value="choornam">Choornam</option>
-                  <option value="ointment">Ointment</option>
-                  <option value="kashayam">Kashayam</option>
-                  <option value="thailam">Thailam</option>
+                  <option value="">Select Category</option>
+                  {categories.filter(c => c.is_active).map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
                 </select>
               </div>
               <div className="col-span-2">
