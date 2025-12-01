@@ -20,7 +20,7 @@ export default function AdminStockPage() {
   const [stockFilter, setStockFilter] = useState('all')
   const [newItem, setNewItem] = useState({
     name: '',
-    category: 'lehyam',
+    category_id: '',
     description: '',
     unit: '',
     quantity: 0,
@@ -83,7 +83,8 @@ export default function AdminStockPage() {
       .from('stock_items')
       .select(`
         *,
-        supplier:suppliers(id, name)
+        supplier:suppliers(id, name),
+        category:medicine_categories(id, name)
       `)
       .order('name')
 
@@ -99,7 +100,7 @@ export default function AdminStockPage() {
     let filtered = stockItems
 
     if (categoryFilter !== 'all') {
-      filtered = filtered.filter(item => item.category === categoryFilter)
+      filtered = filtered.filter(item => item.category_id === categoryFilter)
     }
 
     if (stockFilter !== 'all') {
@@ -160,7 +161,7 @@ export default function AdminStockPage() {
         .from('stock_items')
         .update({
           name: selectedItem.name,
-          category: selectedItem.category,
+          category_id: selectedItem.category_id,
           description: selectedItem.description || null,
           unit: selectedItem.unit,
           min_quantity: selectedItem.min_quantity,
@@ -243,7 +244,7 @@ export default function AdminStockPage() {
   const resetNewItem = () => {
     setNewItem({
       name: '',
-      category: 'lehyam',
+      category_id: '',
       description: '',
       unit: '',
       quantity: 0,
@@ -418,7 +419,7 @@ export default function AdminStockPage() {
                     <tr key={item.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center">
-                          <span className="text-2xl mr-3">{getCategoryIcon(item.category)}</span>
+                          <span className="text-2xl mr-3">{getCategoryIcon(item.category?.name || '')}</span>
                           <div>
                             <div className="text-sm font-medium text-gray-900">{item.name}</div>
                             <div className="text-xs text-gray-500">{item.unit}</div>
@@ -427,7 +428,7 @@ export default function AdminStockPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 py-1 text-xs font-semibold rounded-full bg-teal-100 text-teal-800">
-                          {item.category}
+                          {item.category?.name || 'N/A'}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -487,8 +488,8 @@ export default function AdminStockPage() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
                 <select
-                  value={newItem.category}
-                  onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+                  value={newItem.category_id}
+                  onChange={(e) => setNewItem({ ...newItem, category_id: e.target.value })}
                   className="input-field"
                 >
                   <option value="">Select Category</option>
@@ -614,8 +615,8 @@ export default function AdminStockPage() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
                 <select
-                  value={selectedItem.category}
-                  onChange={(e) => setSelectedItem({ ...selectedItem, category: e.target.value })}
+                  value={selectedItem.category_id}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, category_id: e.target.value })}
                   className="input-field"
                 >
                   <option value="">Select Category</option>
