@@ -2,7 +2,28 @@
 
 This folder contains SQL scripts for setting up and securing your hospital management system database.
 
+> **📌 NEW: Use `supabase/complete-schema.sql`** - A single unified schema file that consolidates all scripts. This is the recommended approach for new database setups.
+
 ## 📁 Available Scripts
+
+### 🌟 RECOMMENDED: `../supabase/complete-schema.sql`
+**Purpose:** Complete database setup in one file
+
+**What it includes:**
+- All extensions (uuid-ossp, pgcrypto)
+- All enum types (user_role, prescription_status, stock_category)
+- All tables (users, patients, suppliers, stock_items, etc.)
+- All indexes for performance
+- All RLS security policies
+- Default admin user and medicine categories
+
+**How to use:**
+1. Open Supabase SQL Editor
+2. Copy contents of `supabase/complete-schema.sql`
+3. Execute the script
+4. Optionally run `supabase/sample-data.sql` for test data
+
+---
 
 ### 1. `sample-data.sql` (Development/Testing)
 **Purpose:** Populate database with sample data and test users
@@ -80,13 +101,15 @@ Physical Med:   physio@hospital.com / physio123
 
 ### For Development/Testing:
 
-1. **Setup Database:**
-   - Main schema is already in `supabase/schema.sql`
-   - It's automatically applied when you create the project
-
-2. **Add Sample Data:**
+1. **Setup Database (NEW - One Command!):**
    ```sql
-   -- Run scripts/sample-data.sql in Supabase SQL Editor
+   -- Run supabase/complete-schema.sql in Supabase SQL Editor
+   -- This creates ALL tables, indexes, RLS, and default data
+   ```
+
+2. **Add Sample Data (Optional):**
+   ```sql
+   -- Run supabase/sample-data.sql for test users and data
    ```
 
 3. **Test Login:**
@@ -96,20 +119,17 @@ Physical Med:   physio@hospital.com / physio123
 ### For Production:
 
 1. **Setup Database:**
-   - Main schema is in `supabase/schema.sql`
-   - Applied automatically
-
-2. **Enable Security:**
    ```sql
-   -- Run scripts/enable-rls-security.sql in Supabase SQL Editor
+   -- Run supabase/complete-schema.sql in Supabase SQL Editor
+   -- RLS security policies are already included!
    ```
 
-3. **Create Real Users:**
+2. **Create Real Users:**
    - Don't use sample data script
    - Create users through admin panel
    - Use strong passwords
 
-4. **Change Admin Password:**
+3. **Change Admin Password:**
    ```sql
    UPDATE users 
    SET password_hash = hash_password('your-strong-password')

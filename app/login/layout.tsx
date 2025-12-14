@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Login - Sanjeevani Ayurvedics',
-  description: 'Login to Sanjeevani Ayurvedics Hospital Management System',
+  title: 'Login - Jeevadhara Ayurveda',
+  description: 'Login to Jeevadhara Ayurveda Hospital Management System',
   icons: {
     icon: '/logo1.png',
     apple: '/logo1.png',

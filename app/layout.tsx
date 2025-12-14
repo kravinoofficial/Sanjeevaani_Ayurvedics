@@ -9,7 +9,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Sanjeevani Ayurvedics - Hospital Management',
+  title: 'Jeevadhara Ayurveda - Hospital Management',
   description: 'Ayurvedic Hospital Management System - Ancient Wisdom, Modern Care',
   icons: {
     icon: '/logo1.png',

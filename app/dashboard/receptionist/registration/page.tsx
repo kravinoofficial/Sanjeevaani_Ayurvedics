@@ -509,9 +509,9 @@ export default function ReceptionistRegistrationPage() {
         <body>
           <div class="ticket-container">
             <div class="header">
-              <h1>Sanjeevani Ayurvedics</h1>
+              <h1>Jeevadhara Ayurveda</h1>
               <p>Outpatient Department</p>
-              <p style="font-size: 11px; margin-top: 4px;">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
+              <p style="font-size: 11px; margin-top: 4px;">📍 Mukkada, Ezhippuram, Parippally, Kollam 691574 | 📞 +91 73565 30311</p>
             </div>
             
             <div class="op-number">
@@ -574,7 +574,7 @@ export default function ReceptionistRegistrationPage() {
             
             <div class="footer">
               <p>Please keep this ticket for reference. Show it to the doctor during consultation.</p>
-              <p style="margin-top: 8px;">Thank you for choosing Sanjeevani Ayurvedics 🌿</p>
+              <p style="margin-top: 8px;">Thank you for choosing Jeevadhara Ayurveda 🌿</p>
             </div>
           </div>
         </body>
@@ -974,9 +974,9 @@ export default function ReceptionistRegistrationPage() {
               <div className="border-4 border-teal-600 rounded-lg p-6">
                 {/* Header */}
                 <div className="text-center border-b-2 border-teal-600 pb-4 mb-6">
-                  <h1 className="text-3xl font-bold text-teal-900">Sanjeevani Ayurvedics 🌿</h1>
+                  <h1 className="text-3xl font-bold text-teal-900">Jeevadhara Ayurveda 🌿</h1>
                   <p className="text-gray-600 text-sm mt-1">Outpatient Department</p>
-                  <p className="text-xs text-gray-500 mt-1">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
+                  <p className="text-xs text-gray-500 mt-1">📍 Mukkada, Ezhippuram, Parippally, Kollam 691574 | 📞 +91 73565 30311</p>
                 </div>
 
                 {/* OP Number - Large Display */}
@@ -1064,7 +1064,7 @@ export default function ReceptionistRegistrationPage() {
                     Please keep this ticket for reference. Show it to the doctor during consultation.
                   </p>
                   <p className="text-xs text-gray-500 mt-2">
-                    Thank you for choosing Sanjeevani Ayurvedics 🌿
+                    Thank you for choosing Jeevadhara Ayurveda 🌿
                   </p>
                 </div>
               </div>

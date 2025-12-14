@@ -346,7 +346,7 @@ export default function DoctorServedPatientsPage() {
               {/* Header */}
               <div className="flex justify-between items-start border-b-4 border-teal-600 pb-4 mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-800">Sanjeevani Ayurvedics 🌿</h1>
+                   <h1 className="text-2xl font-bold text-gray-800">Jeevadhara Ayurveda 🌿</h1>
                   <p className="text-sm text-gray-600 mt-1">Outpatient Department</p>
                 </div>
                 <div className="text-right">

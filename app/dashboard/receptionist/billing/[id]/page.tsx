@@ -245,10 +245,10 @@ export default function GenerateBillPage({ params }: { params: { id: string } })
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8">
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-4xl font-bold mb-2">Sanjeevani Ayurvedics 🌿</h1>
+              <h1 className="text-4xl font-bold mb-2">Jeevadhara Ayurveda 🌿</h1>
               <p className="text-blue-100">Authentic Ayurveda • Personalized Treatments</p>
-              <p className="text-blue-100 text-sm mt-2">📍 Chanthavila, Thiruvananthapuram 695584 | 📞 8589007205</p>
-              <p className="text-blue-100 text-sm">✨ Restore Balance. Revive Health</p>
+              <p className="text-blue-100 text-sm mt-2">📍 Mukkada, Ezhippuram, Parippally, Kollam, Kerala 691574</p>
+              <p className="text-blue-100 text-sm">📞 +91 73565 30311 | ✉️ contact@jeevadharaayurveda.in</p>
             </div>
             <div className="text-right">
               <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
@@ -386,14 +386,14 @@ export default function GenerateBillPage({ params }: { params: { id: string } })
               <div className="text-right">
                 <p className="text-sm font-semibold text-gray-700 mb-4">Authorized Signature</p>
                 <div className="border-t-2 border-gray-300 w-48 ml-auto mt-8"></div>
-                <p className="text-xs text-gray-600 mt-2">Sanjeevani Ayurvedics</p>
+                <p className="text-xs text-gray-600 mt-2">Jeevadhara Ayurveda</p>
               </div>
             </div>
           </div>
 
           {/* Thank You Note */}
           <div className="mt-8 text-center bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-            <p className="text-blue-900 font-semibold">Thank you for choosing Sanjeevani Ayurvedics! 🌿</p>
+            <p className="text-blue-900 font-semibold">Thank you for choosing Jeevadhara Ayurveda! 🌿</p>
             <p className="text-sm text-blue-700 mt-1">✨ Restore Balance. Revive Health</p>
           </div>
         </div>

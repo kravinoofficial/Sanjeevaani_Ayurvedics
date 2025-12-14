@@ -54,7 +54,7 @@ export default function LandingPage() {
           <div className="max-w-4xl">
             {/* Logo - Much Larger */}
             <div className="mb-10">
-              <img src="/logo1.png" alt="Sanjeevani Ayurvedics" className="h-32 sm:h-40 md:h-48 lg:h-56 w-auto" />
+              <img src="/logo1.png" alt="Jeevadhara Ayurveda" className="h-32 sm:h-40 md:h-48 lg:h-56 w-auto" />
             </div>
             
             {/* Ayurvedic Tagline */}
@@ -90,7 +90,7 @@ export default function LandingPage() {
                   <svg className="w-5 h-5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="font-semibold">8589007205</span>
+                  <span className="font-semibold">+91 73565 30311</span>
                 </div>
                 <div className="h-6 w-px bg-white/30"></div>
                 <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ export default function LandingPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="text-sm">Chanthavila, Thiruvananthapuram</span>
+                  <span className="text-sm">Mukkada, Ezhippuram, Parippally, Kollam</span>
                 </div>
               </div>
             </div>
@@ -237,19 +237,19 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <img src="/logo2.png" alt="Sanjeevani Ayurvedics" className="w-10 h-10 rounded-lg" />
+              <img src="/logo2.png" alt="Jeevadhara Ayurveda" className="w-10 h-10 rounded-lg" />
               <div>
-                <p className="font-bold text-gray-800">Sanjeevani Ayurvedics</p>
+                <p className="font-bold text-gray-800">Jeevadhara Ayurveda</p>
                 <p className="text-xs text-gray-600">Authentic Ayurveda • Personalized Treatments</p>
               </div>
             </div>
             <div className="text-center md:text-right">
-              <p className="text-sm text-gray-600">📞 8589007205</p>
-              <p className="text-xs text-gray-500">Sanjeevani Ayurvedics, Chanthavila, Thiruvananthapuram 695584</p>
+              <p className="text-sm text-gray-600">📞 +91 73565 30311 | contact@jeevadharaayurveda.in</p>
+              <p className="text-xs text-gray-500">Jeevadhara Ayurveda, Mukkada, Ezhippuram, Parippally, Kollam, Kerala 691574</p>
             </div>
           </div>
           <div className="text-center mt-4 pt-4 border-t border-gray-200">
-            <p className="text-xs text-gray-500">© 2025 Sanjeevani Ayurvedics. All rights reserved.</p>
+            <p className="text-xs text-gray-500">© 2025 Jeevadhara Ayurveda. All rights reserved.</p>
             <p className="text-xs text-gray-400 mt-1">
               Website built by <a href="https://touchpointe.digital/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Touchpointe Digital</a>
             </p>

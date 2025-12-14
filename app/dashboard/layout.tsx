@@ -119,8 +119,8 @@ export default function DashboardLayout({
         {/* Logo */}
         <div className="p-6 border-b border-emerald-200">
           <div className="flex items-center">
-            <img src="/logo2.png" alt="Sanjeevani Ayurvedics" className="w-10 h-10 rounded-lg shadow-md" />
-            <span className="ml-3 text-lg font-bold text-teal-900">Sanjeevani Ayurvedics</span>
+            <img src="/logo2.png" alt="Jeevadhara Ayurveda" className="w-10 h-10 rounded-lg shadow-md" />
+            <span className="ml-3 text-lg font-bold text-teal-900">Jeevadhara Ayurveda</span>
           </div>
         </div>
 
@@ -188,8 +188,8 @@ export default function DashboardLayout({
           <aside className="w-64 bg-emerald-50/95 backdrop-blur-md border-r border-emerald-100 h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
             <div className="p-6 border-b border-emerald-200">
               <div className="flex items-center">
-                <img src="/logo2.png" alt="Sanjeevani Ayurvedics" className="w-10 h-10 rounded-lg shadow-md" />
-                <span className="ml-3 text-lg font-bold text-teal-900">Sanjeevani Ayurvedics</span>
+                <img src="/logo2.png" alt="Jeevadhara Ayurveda" className="w-10 h-10 rounded-lg shadow-md" />
+                <span className="ml-3 text-lg font-bold text-teal-900">Jeevadhara Ayurveda</span>
               </div>
             </div>
             <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
